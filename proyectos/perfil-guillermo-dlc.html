@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guillermo DLC — Anuario 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --base:     #1a1a2e;
+            --mantle:   #13131f;
+            --crust:    #0d0d18;
+            --surface0: #252538;
+            --surface1: #333350;
+            --overlay0: #5e5e82;
+            --subtext0: #9b9bc0;
+            --subtext1: #bbbde0;
+            --text:     #e0e0f5;
+            --pink:     #ff6b9d;
+            --mauve:    #bb86fc;
+            --peach:    #ffab70;
+            --green:    #69ff91;
+            --teal:     #4dd9c0;
+            --blue:     #70b8ff;
+            --lavender: #c4b5fd;
+            --yellow:   #ffe066;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--crust);
+            color: var(--text);
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        #cursor {
+            position: fixed;
+            width: 10px; height: 10px;
+            background: var(--mauve);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.15s, height 0.15s, background 0.2s;
+            mix-blend-mode: screen;
+        }
+        #cursor-ring {
+            position: fixed;
+            width: 32px; height: 32px;
+            border: 1.5px solid rgba(187,134,252,0.45);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s cubic-bezier(0.4,0,0.2,1), height 0.3s cubic-bezier(0.4,0,0.2,1), border-color 0.3s;
+        }
+        body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 5px; height: 5px; background: var(--teal); }
+        body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring {
+            width: 48px; height: 48px;
+            border-color: rgba(77,217,192,0.6);
+        }
+
+        #canvas-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: 0;
+            pointer-events: none;
+            animation: blobFloat 14s ease-in-out infinite;
+        }
+        .blob-1 { width: 520px; height: 520px; top: -180px; left: -120px; background: radial-gradient(circle, #bb86fc 0%, transparent 70%); opacity: 0.09; }
+        .blob-2 { width: 420px; height: 420px; bottom: -80px; right: -100px; background: radial-gradient(circle, #4dd9c0 0%, transparent 70%); opacity: 0.08; animation-delay: -5s; }
+        .blob-3 { width: 280px; height: 280px; top: 35%; left: 38%; background: radial-gradient(circle, #ff6b9d 0%, transparent 70%); opacity: 0.07; animation-delay: -9s; }
+
+        @keyframes blobFloat {
+            0%, 100% { transform: translate(0,0) scale(1); }
+            33%  { transform: translate(28px,-22px) scale(1.04); }
+            66%  { transform: translate(-18px,14px) scale(0.97); }
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 36px 22px 100px;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s cubic-bezier(0.4,0,0.2,1), transform 0.65s cubic-bezier(0.4,0,0.2,1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 44px;
+        }
+
+        a.btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--subtext0);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 9px 20px;
+            border: 1px solid var(--surface1);
+            border-radius: 999px;
+            background: rgba(37,37,56,0.6);
+            backdrop-filter: blur(10px);
+            transition: all 0.25s ease;
+            font-family: 'Nunito', sans-serif;
+        }
+        a.btn-back:hover {
+            color: var(--lavender);
+            border-color: rgba(196,181,253,0.4);
+            background: rgba(51,51,80,0.6);
+            transform: translateX(-4px);
+        }
+
+        .nav-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--green);
+            font-weight: 700;
+            padding: 7px 16px;
+            border: 1px solid rgba(105,255,145,0.2);
+            border-radius: 999px;
+            background: rgba(105,255,145,0.05);
+        }
+        .status-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse 2s ease infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(105,255,145,0.5); }
+            50%  { box-shadow: 0 0 0 7px rgba(105,255,145,0); }
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+        .stat-card {
+            background: rgba(37,37,56,0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(196,181,253,0.1);
+            border-radius: 20px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: border-color 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::after {
+            content: attr(data-emoji);
+            position: absolute;
+            bottom: -8px; right: 4px;
+            font-size: 2rem;
+            opacity: 0.12;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+        }
+        .stat-card:hover { border-color: rgba(196,181,253,0.28); transform: translateY(-4px); }
+        .stat-card:hover::after { opacity: 0.22; transform: scale(1.1) rotate(-8deg); }
+        .stat-number {
+            font-family: 'Nunito', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, var(--lavender), var(--mauve), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .stat-label { font-family: 'Nunito', sans-serif; font-size: 0.82rem; color: var(--subtext0); font-weight: 600; margin-top: 4px; line-height: 1.3; }
+
+        .hero {
+            position: relative;
+            padding: 40px;
+            background: rgba(37,37,56,0.5);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(196,181,253,0.14);
+            border-radius: 30px;
+            margin-bottom: 22px;
+            overflow: hidden;
+            transition: border-color 0.4s;
+        }
+        .hero:hover { border-color: rgba(187,134,252,0.28); }
+
+        .hero-shimmer {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, var(--mauve) 30%, var(--teal) 60%, var(--pink) 80%, transparent 100%);
+            background-size: 200% 100%;
+            animation: shimmerMove 3.5s linear infinite;
+        }
+        @keyframes shimmerMove {
+            0%   { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 320px; height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(187,134,252,0.1) 0%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: left 0.07s, top 0.07s;
+        }
+
+        .hero-inner {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 36px;
+        }
+
+        .hero-photo-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+        .hero-photo-wrap img {
+            width: 130px; height: 130px;
+            border-radius: 24px;
+            object-fit: cover;
+            border: 2px solid rgba(187,134,252,0.35);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+            transform: rotate(-2deg);
+            transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), box-shadow 0.5s;
+            display: block;
+        }
+        .hero:hover .hero-photo-wrap img {
+            transform: rotate(0deg) scale(1.04);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 0 3px rgba(187,134,252,0.4);
+        }
+        .photo-badge {
+            position: absolute;
+            bottom: -9px; right: -9px;
+            background: var(--surface0);
+            border: 1px solid rgba(77,217,192,0.3);
+            border-radius: 10px;
+            padding: 5px 10px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--teal);
+            white-space: nowrap;
+        }
+        .age-badge {
+            position: absolute;
+            top: -9px; left: -9px;
+            background: linear-gradient(135deg, var(--mauve), var(--pink));
+            border-radius: 10px;
+            padding: 4px 9px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: #fff;
+            white-space: nowrap;
+        }
+
+        .hero-text { flex: 1; }
+
+        .hero-eyebrow {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--mauve);
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .hero-name {
+            font-family: 'Nunito', sans-serif;
+            font-size: clamp(1.9rem, 5.2vw, 2.9rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            background: linear-gradient(135deg, var(--lavender) 0%, var(--mauve) 40%, var(--pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .hero-sub {
+            font-size: 0.95rem;
+            color: var(--subtext0);
+            margin-bottom: 20px;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+        .hero-sub strong { color: var(--teal); font-weight: 700; }
+
+        .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .tag {
+            font-size: 0.76rem;
+            font-weight: 700;
+            padding: 5px 13px;
+            border-radius: 999px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: default;
+        }
+        .tag:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.35); }
+        .tag-mauve { background: rgba(187,134,252,0.13); color: var(--mauve); border: 1px solid rgba(187,134,252,0.28); }
+        .tag-teal  { background: rgba(77,217,192,0.13);  color: var(--teal);  border: 1px solid rgba(77,217,192,0.28); }
+        .tag-peach { background: rgba(255,171,112,0.13); color: var(--peach); border: 1px solid rgba(255,171,112,0.28); }
+        .tag-blue  { background: rgba(112,184,255,0.13); color: var(--blue);  border: 1px solid rgba(112,184,255,0.28); }
+        .tag-green { background: rgba(105,255,145,0.13); color: var(--green); border: 1px solid rgba(105,255,145,0.28); }
+        .tag-pink  { background: rgba(255,107,157,0.13); color: var(--pink);  border: 1px solid rgba(255,107,157,0.28); }
+        .tag-yellow { background: rgba(255,224,102,0.13); color: var(--yellow); border: 1px solid rgba(255,224,102,0.28); }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: rgba(37,37,56,0.45);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(196,181,253,0.1);
+            border-radius: 24px;
+            padding: 28px;
+            transition: border-color 0.35s, background 0.35s, transform 0.35s, box-shadow 0.35s;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background: radial-gradient(500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(187,134,252,0.07), transparent 45%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+        .card:hover::before { opacity: 1; }
+        .card:hover {
+            border-color: rgba(196,181,253,0.22);
+            background: rgba(51,51,80,0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 48px rgba(0,0,0,0.38);
+        }
+        .card.full { grid-column: 1 / -1; }
+
+        .card-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 2.8px;
+            text-transform: uppercase;
+            color: var(--overlay0);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-label::after { content: ""; flex: 1; height: 1px; background: var(--surface1); }
+
+        .bio {
+            font-size: 0.96rem;
+            color: var(--subtext1);
+            line-height: 1.9;
+            font-weight: 400;
+        }
+        .bio .emoji-inline { font-style: normal; }
+
+        .hobbies-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .hobby-card {
+            background: var(--surface0);
+            border: 1px solid transparent;
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: border-color 0.25s, transform 0.25s, background 0.25s;
+            cursor: default;
+        }
+        .hobby-card:hover {
+            border-color: rgba(187,134,252,0.35);
+            background: rgba(51,51,80,0.6);
+            transform: translateY(-3px) scale(1.02);
+        }
+        .hobby-icon {
+            font-size: 1.8rem;
+            width: 44px; height: 44px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(187,134,252,0.08);
+            border-radius: 12px;
+            flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+        .hobby-card:hover .hobby-icon { transform: scale(1.15) rotate(-5deg); }
+        .hobby-info { flex: 1; }
+        .hobby-name {
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+        .hobby-desc { font-size: 0.76rem; color: var(--subtext0); font-weight: 500; }
+
+        .contact-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .contact-list li {
+            display: flex; align-items: center; gap: 14px;
+            font-size: 0.92rem; color: var(--subtext1);
+        }
+        .contact-list a {
+            color: var(--subtext1); text-decoration: none;
+            transition: color 0.2s;
+            position: relative;
+        }
+        .contact-list a::after {
+            content: "";
+            position: absolute;
+            left: 0; bottom: -1px;
+            width: 0; height: 1px;
+            background: var(--lavender);
+            transition: width 0.3s;
+        }
+        .contact-list a:hover { color: var(--lavender); }
+        .contact-list a:hover::after { width: 100%; }
+
+        .contact-icon {
+            width: 38px; height: 38px;
+            border-radius: 11px;
+            background: var(--surface0);
+            border: 1px solid var(--surface1);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+            transition: border-color 0.25s, transform 0.25s;
+        }
+        .contact-list li:hover .contact-icon {
+            border-color: rgba(196,181,253,0.4);
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .timeline { display: flex; flex-direction: column; gap: 28px; }
+        .tl-item { position: relative; padding-left: 24px; }
+        .tl-item::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 8px;
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            background: var(--mauve);
+            box-shadow: 0 0 0 3px rgba(187,134,252,0.15), 0 0 14px rgba(187,134,252,0.4);
+            transition: box-shadow 0.3s;
+        }
+        .tl-item:hover::before { box-shadow: 0 0 0 5px rgba(187,134,252,0.22), 0 0 20px rgba(187,134,252,0.65); }
+        .tl-item::after {
+            content: "";
+            position: absolute;
+            left: 4px; top: 20px;
+            width: 1px; height: calc(100% + 16px);
+            background: linear-gradient(to bottom, var(--surface1), transparent);
+        }
+        .tl-item:last-child::after { display: none; }
+
+        .tl-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+        .tl-company { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800; color: var(--text); }
+        .tl-date {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.68rem; color: var(--overlay0);
+            background: var(--surface0);
+            padding: 3px 10px; border-radius: 999px;
+            white-space: nowrap;
+        }
+        .tl-role { font-size: 0.86rem; color: var(--teal); font-weight: 700; margin-bottom: 10px; }
+        .tl-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+        .edu-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--surface0); }
+        .edu-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .edu-school { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--text); margin-bottom: 4px; }
+        .edu-detail { font-size: 0.83rem; color: var(--subtext0); margin-bottom: 6px; }
+        .edu-year {
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.68rem; color: var(--peach);
+            border: 1px solid rgba(255,171,112,0.3);
+            border-radius: 999px;
+            padding: 3px 11px;
+        }
+
+        .skill-section { display: flex; flex-direction: column; gap: 10px; }
+        .skill-row {
+            display: flex; align-items: center; gap: 12px;
+            font-size: 0.86rem; font-weight: 700; color: var(--subtext1);
+        }
+        .skill-name { width: 140px; flex-shrink: 0; }
+        .skill-bar-bg {
+            flex: 1; height: 6px;
+            background: var(--surface0);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .skill-bar {
+            height: 100%;
+            border-radius: 999px;
+            width: 0;
+            transition: width 1.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        .skill-bar.teal  { background: linear-gradient(90deg, var(--teal), var(--blue)); }
+        .skill-bar.blue  { background: linear-gradient(90deg, var(--blue), var(--lavender)); }
+        .skill-bar.mauve { background: linear-gradient(90deg, var(--mauve), var(--pink)); }
+        .skill-bar.peach { background: linear-gradient(90deg, var(--peach), var(--yellow)); }
+        .skill-bar.green { background: linear-gradient(90deg, var(--green), var(--teal)); }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+            gap: 8px;
+            margin-top: 22px;
+        }
+        .tool-chip {
+            background: var(--surface0);
+            border: 1px solid transparent;
+            border-radius: 12px;
+            padding: 10px 12px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--subtext1);
+            display: flex; align-items: center; gap: 7px;
+            transition: border-color 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
+            cursor: default;
+        }
+        .tool-chip:hover {
+            border-color: rgba(77,217,192,0.35);
+            color: var(--teal);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+        }
+        .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+        .dot.teal  { background: var(--teal); }
+        .dot.blue  { background: var(--blue); }
+        .dot.mauve { background: var(--mauve); }
+        .dot.peach { background: var(--peach); }
+        .dot.green { background: var(--green); }
+        .dot.pink  { background: var(--pink); }
+        .dot.yellow { background: var(--yellow); }
+
+        .typing-wrap {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--teal);
+            margin-bottom: 10px;
+        }
+        .typing-cursor {
+            display: inline-block;
+            width: 2px; height: 1em;
+            background: var(--mauve);
+            margin-left: 2px;
+            vertical-align: middle;
+            animation: blink 0.9s step-end infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .fun-fact-ticker {
+            background: rgba(37,37,56,0.7);
+            border: 1px solid rgba(196,181,253,0.12);
+            border-radius: 999px;
+            padding: 8px 20px;
+            font-size: 0.82rem;
+            color: var(--subtext0);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+        .ticker-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.62rem;
+            color: var(--mauve);
+            font-weight: 700;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            text-transform: uppercase;
+        }
+        .ticker-text {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker-inner {
+            display: inline-block;
+            animation: tickerMove 22s linear infinite;
+        }
+        @keyframes tickerMove {
+            0%   { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        @media (max-width: 620px) {
+            .hero-inner { flex-direction: column; }
+            .grid { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: 1fr 1fr; }
+            .hobbies-grid { grid-template-columns: 1fr; }
+            body { cursor: auto; }
+            #cursor, #cursor-ring { display: none; }
+        }
+
+        ::selection { background: rgba(187,134,252,0.22); color: var(--text); }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--mantle); }
+        ::-webkit-scrollbar-thumb { background: var(--surface1); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--overlay0); }
+    </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<canvas id="canvas-bg"></canvas>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="page">
+
+    <nav class="reveal">
+        <a href="../index.html" class="btn-back">← Volver al Anuario</a>
+
+    </nav>
+
+    <div class="fun-fact-ticker reveal">
+        <span class="ticker-label">✦ FUN</span>
+        <div class="ticker-text">
+            <span class="ticker-inner">
+                &nbsp;&nbsp; 🎮 Gamer en mis tiempos libres &nbsp;·&nbsp; 🦾 Automatizando el mundo un script a la vez &nbsp;·&nbsp; 🎨 Dibujando cuando el código descansa &nbsp;·&nbsp; 🧊 Modelando en Blender con más fe que vertices &nbsp;·&nbsp; 🚀 Aprendiendo algo nuevo cada día &nbsp;&nbsp;
+            </span>
+        </div>
+    </div>
+
+    <div class="stats-row reveal">
+
+        <div class="stat-card" data-emoji="💼">
+            <div class="stat-number" data-count="2">0</div>
+            <div class="stat-label">Experiencias laborales</div>
+        </div>
+        <div class="stat-card" data-emoji="🛠">
+            <div class="stat-number" data-count="14">0</div>
+            <div class="stat-label">Herramientas dominadas</div>
+        </div>
+
+    </div>
+
+    <div class="hero reveal" id="hero-card">
+        <div class="hero-shimmer"></div>
+        <div class="hero-glow" id="hero-glow"></div>
+        <div class="hero-inner">
+            <div class="hero-photo-wrap">
+                <img src="../image/img-guillermo-dlc.jpeg" alt="Guillermo De La Cruz">
+
+
+            </div>
+            <div class="hero-text">
+                <div class="typing-wrap" id="typing-line"><span class="typing-cursor"></span></div>
+                <div class="hero-name">Guillermo<br>De La Cruz Lopez</div>
+                <div class="hero-sub">
+                    Apasionado por el código, la IA generativa y automatizar el mundo 🚀
+                </div>
+                <div class="hero-tags">
+                    <span class="tag tag-mauve">Python</span>
+                    <span class="tag tag-teal">JavaScript</span>
+                    <span class="tag tag-blue">HTML · CSS</span>
+                    <span class="tag tag-peach">IA Generativa</span>
+                    <span class="tag tag-yellow">Blender 3D</span>
+                    <span class="tag tag-pink">Gamer 🎮</span>
+                    <span class="tag tag-green">Disponible 🟢</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid">
+
+        <div class="card full reveal">
+            <div class="card-label">Sobre mí</div>
+            <p class="bio">
+                Hola, soy Guillermo 👋 — me encanta construir cosas con código, desde scripts que automatizan tareas aburridas hasta proyectos web que se ven increíbles.
+                En mis ratos libres me meto a jugar videojuegos, dibujar o ponerme a experimentar con Blender 3D porque modelar en 3D es como tener
+                superpoderes artísticos. Ya tengo experiencia laboral real con bases de datos y software contable — sé lo que es lidiar con datos del mundo real.
+                Aprendo rápido, me adapto fácil y siempre traigo energía al equipo. 🔥
+            </p>
+        </div>
+
+        <div class="card reveal">
+            <div class="card-label">Mis Gustos</div>
+            <div class="hobbies-grid">
+                <div class="hobby-card">
+                    <div class="hobby-icon">🎮</div>
+                    <div class="hobby-info">
+                        <div class="hobby-name">Videojuegos</div>
+                        <div class="hobby-desc">RPGs, estrategia y todo lo que tenga buena historia</div>
+                    </div>
+                </div>
+                <div class="hobby-card">
+                    <div class="hobby-icon">💻</div>
+                    <div class="hobby-info">
+                        <div class="hobby-name">Programación</div>
+                        <div class="hobby-desc">Python, JS, automatización y herramientas de IA</div>
+                    </div>
+                </div>
+                <div class="hobby-card">
+                    <div class="hobby-icon">🧊</div>
+                    <div class="hobby-info">
+                        <div class="hobby-name">Blender 3D</div>
+                        <div class="hobby-desc">Modelado, materiales y renders que te dejan helado</div>
+                    </div>
+                </div>
+                <div class="hobby-card">
+                    <div class="hobby-icon">🎨</div>
+                    <div class="hobby-info">
+                        <div class="hobby-name">Dibujo</div>
+                        <div class="hobby-desc">Bocetos digitales y a mano cuando se me da la inspiración</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card reveal">
+            <div class="card-label">Contacto</div>
+            <ul class="contact-list">
+                <li>
+                    <span class="contact-icon">📱</span>
+                    <a href="tel:+51902887250">+51 902 887 250</a>
+                </li>
+                <li>
+                    <span class="contact-icon">✉️</span>
+                    <a href="mailto:memorexandres@gmail.com">memorexandres@gmail.com</a>
+                </li>
+                <li>
+                    <span class="contact-icon">👤</span>
+                    <a href="https://facebook.com/tofutofu" target="_blank">facebook.com/guillermodlc</a>
+                </li>
+                <li>
+                    <span class="contact-icon">📍</span>
+                    Jr. Tarapaca N° 665, Huancayo
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="card full reveal">
+            <div class="card-label">Experiencia Laboral</div>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-header">
+                        <div class="tl-company">Transportes Nacionales S.A.</div>
+                        <div class="tl-date">2025 – 2026</div>
+                    </div>
+                    <div class="tl-role">Auxiliar de Software Contable</div>
+                    <div class="tl-tags">
+                        <span class="tag tag-mauve">Automatización</span>
+                        <span class="tag tag-teal">Validación con IA</span>
+                        <span class="tag tag-blue">Cloud sync</span>
+                        <span class="tag tag-peach">Auditoría de datos</span>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-header">
+                        <div class="tl-company">Estudio Contable Lopez</div>
+                        <div class="tl-date">2020 – 2021</div>
+                    </div>
+                    <div class="tl-role">Practicante — Área de Base de Datos</div>
+                    <div class="tl-tags">
+                        <span class="tag tag-green">Excel Avanzado</span>
+                        <span class="tag tag-blue">Digitalización</span>
+                        <span class="tag tag-teal">Data Cleaning</span>
+                        <span class="tag tag-mauve">Soporte técnico</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card full reveal">
+            <div class="card-label">Lenguajes & Nivel</div>
+            <div class="skill-section" id="skill-bars">
+                <div class="skill-row">
+                    <span class="skill-name">Python</span>
+                    <div class="skill-bar-bg"><div class="skill-bar teal" data-width="72"></div></div>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">JavaScript</span>
+                    <div class="skill-bar-bg"><div class="skill-bar teal" data-width="68"></div></div>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">HTML5 / CSS3</span>
+                    <div class="skill-bar-bg"><div class="skill-bar blue" data-width="80"></div></div>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">Java</span>
+                    <div class="skill-bar-bg"><div class="skill-bar mauve" data-width="55"></div></div>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">PHP</span>
+                    <div class="skill-bar-bg"><div class="skill-bar mauve" data-width="50"></div></div>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">Excel Avanzado</span>
+                    <div class="skill-bar-bg"><div class="skill-bar green" data-width="85"></div></div>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">Blender 3D</span>
+                    <div class="skill-bar-bg"><div class="skill-bar peach" data-width="60"></div></div>
+                </div>
+                <div class="skill-row">
+                    <span class="skill-name">Inglés B1</span>
+                    <div class="skill-bar-bg"><div class="skill-bar peach" data-width="52"></div></div>
+                </div>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-chip"><span class="dot yellow"></span>Blender</div>
+                <div class="tool-chip"><span class="dot mauve"></span>Stable Diffusion</div>
+                <div class="tool-chip"><span class="dot mauve"></span>Google Colab</div>
+                <div class="tool-chip"><span class="dot mauve"></span>WAN 2.2</div>
+                <div class="tool-chip"><span class="dot green"></span>Microsoft Office</div>
+                <div class="tool-chip"><span class="dot peach"></span>AutoCAD 2D/3D</div>
+                <div class="tool-chip"><span class="dot peach"></span>Photoshop CS6</div>
+                <div class="tool-chip"><span class="dot blue"></span>Git / GitHub</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursor-ring');
+    let cx = window.innerWidth/2, cy = window.innerHeight/2;
+    let rx = cx, ry = cy;
+
+    document.addEventListener('mousemove', e => {
+        cx = e.clientX; cy = e.clientY;
+        cursor.style.left = cx + 'px';
+        cursor.style.top  = cy + 'px';
+    });
+
+    (function animateRing() {
+        rx += (cx - rx) * 0.12;
+        ry += (cy - ry) * 0.12;
+        ring.style.left = rx + 'px';
+        ring.style.top  = ry + 'px';
+        requestAnimationFrame(animateRing);
+    })();
+
+    const heroCard = document.getElementById('hero-card');
+    const heroGlow = document.getElementById('hero-glow');
+    heroCard.addEventListener('mousemove', e => {
+        const rect = heroCard.getBoundingClientRect();
+        heroGlow.style.left = (e.clientX - rect.left) + 'px';
+        heroGlow.style.top  = (e.clientY - rect.top)  + 'px';
+    });
+
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+            card.style.setProperty('--mouse-y', (e.clientY - rect.top)  + 'px');
+        });
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 75);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
+
+    function animateCount(el, target, duration = 1400) {
+        let start = null;
+        (function step(ts) {
+            if (!start) start = ts;
+            const p = Math.min((ts - start) / duration, 1);
+            const ease = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(ease * target);
+            if (p < 1) requestAnimationFrame(step);
+        })(performance.now());
+    }
+
+    new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCount(entry.target, parseInt(entry.target.dataset.count));
+                countObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 }).observe; 
+
+    const countObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCount(entry.target, parseInt(entry.target.dataset.count));
+                countObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+
+    const barObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.skill-bar').forEach((bar, i) => {
+                    setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, i * 100);
+                });
+                barObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    const skillSection = document.getElementById('skill-bars');
+    if (skillSection) barObserver.observe(skillSection.closest('.card'));
+
+    const canvas = document.getElementById('canvas-bg');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const pColors = ['#bb86fc','#4dd9c0','#70b8ff','#ff6b9d','#c4b5fd','#ffe066'];
+    for (let i = 0; i < 60; i++) {
+        particles.push({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            r: Math.random() * 1.4 + 0.3,
+            dx: (Math.random() - 0.5) * 0.22,
+            dy: (Math.random() - 0.5) * 0.22,
+            color: pColors[Math.floor(Math.random() * pColors.length)],
+            alpha: Math.random() * 0.38 + 0.08
+        });
+    }
+
+    (function drawParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = p.alpha;
+            ctx.fill();
+            p.x += p.dx; p.y += p.dy;
+            if (p.x < 0) p.x = canvas.width;
+            if (p.x > canvas.width) p.x = 0;
+            if (p.y < 0) p.y = canvas.height;
+            if (p.y > canvas.height) p.y = 0;
+        });
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(drawParticles);
+    })();
+
+    const typingEl = document.getElementById('typing-line');
+    const phrases = [
+        '// hola mundo, soy Guillermo 👋',
+        '// gamer · dev · artista 3D',
+        '// siempre construyendo algo nuevo',
+        '// disponible para proyectos 🚀',
+    ];
+    let pIdx = 0, cIdx = 0, deleting = false;
+
+    function typeEffect() {
+        const phrase = phrases[pIdx];
+        if (!deleting) {
+            cIdx++;
+            typingEl.innerHTML = phrase.slice(0, cIdx) + '<span class="typing-cursor"></span>';
+            if (cIdx === phrase.length) {
+                deleting = true;
+                setTimeout(typeEffect, 2200);
+                return;
+            }
+        } else {
+            cIdx--;
+            typingEl.innerHTML = phrase.slice(0, cIdx) + '<span class="typing-cursor"></span>';
+            if (cIdx === 0) {
+                deleting = false;
+                pIdx = (pIdx + 1) % phrases.length;
+            }
+        }
+        setTimeout(typeEffect, deleting ? 38 : 62);
+    }
+    setTimeout(typeEffect, 600);
+</script>
+</body>
+</html>
