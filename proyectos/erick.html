@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Perfil | Erick Joseph Aquino Castro</title>
+  <!-- Fuentes limpias y modernas -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (iconos redes y generales) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #eef2f7 0%, #d9e0e8 100%);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    /* contenedor principal */
+    .card {
+      max-width: 560px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.02);
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.01);
+    }
+
+    /* cabecera con imagen y fondo sutil */
+    .card-header {
+      background: #1e2b32;
+      padding: 2rem 1.5rem 1.2rem 1.5rem;
+      text-align: center;
+      border-bottom: 4px solid #f4bc5c;
+    }
+
+    /* Contenedor de la imagen de perfil real */
+    .avatar {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1rem auto;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 14px rgba(0,0,0,0.2);
+      border: 3px solid white;
+      overflow: hidden;
+      background: #f4bc5c; /* color de fondo por si falla la imagen */
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* por si la imagen no carga, mostramos un ícono de respaldo */
+    .avatar .fallback-icon {
+      display: none;
+      font-size: 3.8rem;
+      color: #1e2b32;
+    }
+
+    .avatar img.error + .fallback-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .card-header h1 {
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: white;
+      letter-spacing: -0.3px;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-header .edad {
+      background: rgba(255,255,240,0.2);
+      display: inline-block;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      color: #fef3da;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    /* contenido principal */
+    .card-body {
+      padding: 1.8rem 1.8rem 1.5rem;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 0.7rem 1rem;
+      border-radius: 1.2rem;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      color: #1f2f3c;
+    }
+
+    .info-row i {
+      width: 28px;
+      color: #f4bc5c;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .hobbies {
+      margin: 1.5rem 0 1.8rem 0;
+    }
+
+    .hobbies h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: #2d4a5c;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .hobby-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hobby-tag {
+      background: #eff3f8;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #1f3e4f;
+    }
+
+    .hobby-tag i {
+      font-size: 0.85rem;
+      color: #f4bc5c;
+    }
+
+    /* redes sociales estilo minimal */
+    .social-section {
+      margin-top: 1rem;
+      border-top: 1px solid #e6edf4;
+      padding-top: 1.5rem;
+      text-align: center;
+    }
+
+    .social-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #597a95;
+      margin-bottom: 1rem;
+    }
+
+    .social-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+
+    .social-link {
+      background: #ffffff;
+      border: 1px solid #e2eaf1;
+      padding: 0.55rem 1.2rem;
+      border-radius: 3rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1e2b32;
+      transition: all 0.2s;
+    }
+
+    .social-link i {
+      font-size: 1rem;
+      transition: transform 0.1s;
+    }
+
+    /* colores hover distintos */
+    .social-link.linkedin:hover {
+      background: #0A66C2;
+      border-color: #0A66C2;
+      color: white;
+    }
+    .social-link.github:hover {
+      background: #181717;
+      border-color: #181717;
+      color: white;
+    }
+    .social-link.instagram:hover {
+      background: #d62976;
+      border-color: #d62976;
+      color: white;
+    }
+    .social-link.twitter:hover {
+      background: #1DA1F2;
+      border-color: #1DA1F2;
+      color: white;
+    }
+    .social-link.email:hover {
+      background: #c04434;
+      border-color: #c04434;
+      color: white;
+    }
+
+    .footer-note {
+      background: #fbfdff;
+      padding: 0.8rem 1rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #6c8dab;
+      border-top: 1px solid #ecf3f9;
+    }
+
+    @media (max-width: 480px) {
+      .card-body {
+        padding: 1.2rem;
+      }
+      .social-link {
+        padding: 0.45rem 1rem;
+        font-size: 0.75rem;
+      }
+      .card-header h1 {
+        font-size: 1.6rem;
+      }
+      .avatar {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <!-- Encabezado: nombre + apellidos + edad con imagen web real -->
+  <div class="card-header">
+    <div class="avatar" id="avatarContainer">
+      <!-- Imagen de perfil desde URL (Unsplash free stock + persona joven sonriente, estilo profesional)
+           Cambia esta URL por la que desees. Usamos una imagen de placeholder real, pero puedes reemplazar -->
+      <img class="avatar-img" 
+           src="https://randomuser.me/api/portraits/men/32.jpg" 
+           alt="Foto de perfil Erick"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <i class="fas fa-user-astronaut fallback-icon" style="display: none;"></i>
+    </div>
+    <h1>Erick Joseph Aquino Castro</h1>
+    <div class="edad"><i class="far fa-calendar-alt"></i> 19 años · 11/10/2006</div>
+  </div>
+
+  <div class="card-body">
+    <!-- Datos personales simples: ubicación, ocupación -->
+    <div class="info-row">
+      <i class="fas fa-map-marker-alt"></i>
+      <span>📍 Huancayo, Peru</span>
+    </div>
+    <div class="info-row">
+      <i class="fas fa-laptop-code"></i>
+      <span>💻 Estudiante de Ingeniería de Software</span>
+    </div>
+
+    <!-- HOBBIES / intereses -->
+    <div class="hobbies">
+      <h3><i class="fas fa-heart" style="color: #f4bc5c;"></i> Hobbies & pasiones</h3>
+      <div class="hobby-list">
+        <span class="hobby-tag"><i class="fas fa-camera"></i> Fotografía</span>
+        <span class="hobby-tag"><i class="fas fa-gamepad"></i> Videojuegos</span>
+        <span class="hobby-tag"><i class="fas fa-hiking"></i> Programación</span>
+        <span class="hobby-tag"><i class="fas fa-headphones"></i> Música</span>
+        <span class="hobby-tag"><i class="fas fa-book"></i> Lectura</span>
+      </div>
+    </div>
+
+    <!-- REDES SOCIALES (redirección a perfiles reales / ejemplo) -->
+    <div class="social-section">
+      <div class="social-title">
+        <i class="fas fa-share-alt"></i> Conecta conmigo
+      </div>
+      <div class="social-buttons">
+        <a href="https://www.linkedin.com" class="social-link linkedin" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-linkedin-in"></i> LinkedIn
+        </a>
+        <a href="https://github.com" class="social-link github" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+        <a href="https://www.instagram.com" class="social-link instagram" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://twitter.com" class="social-link twitter" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-twitter"></i> X
+        </a>
+        <a href="mailto:erickjosephaquinocastro@gmail.com" class="social-link email" target="_blank" rel="noopener noreferrer">
+          <i class="fas fa-envelope"></i> Email
+        </a>
+      </div>
+      <p style="font-size: 0.7rem; margin-top: 1rem; color: #80a2c2;">
+        <i class="fas fa-hand-peace"></i> Haz clic para visitar mis redes
+      </p>
+    </div>
+  </div>
+  <div class="footer-note">
+    <span><i class="far fa-smile-wink"></i> Siempre aprendiendo y creando</span>
+  </div>
+</div>
+
+<!-- pequeño script para garantizar el ícono de fallback si la imagen no carga 
+     (el onerror ya se ocupa, pero por si acaso sincronizamos) -->
+<script>
+  (function() {
+    const avatarImg = document.querySelector('.avatar-img');
+    const fallbackIcon = document.querySelector('.fallback-icon');
+    if (avatarImg && fallbackIcon) {
+      // si la imagen ya falló al cargar, el onerror lo cubre.
+      // también verificamos después de un tiempo por si falla tardiamente
+      avatarImg.addEventListener('error', function() {
+        avatarImg.style.display = 'none';
+        if (fallbackIcon) fallbackIcon.style.display = 'flex';
+      });
+      // Si la imagen carga correctamente, aseguramos que el icono esté oculto
+      avatarImg.addEventListener('load', function() {
+        avatarImg.style.display = 'block';
+        if (fallbackIcon) fallbackIcon.style.display = 'none';
+      });
+    }
+  })();
+</script>
+</body>
+</html>
