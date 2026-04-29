@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfil de Anderson Huarac</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #190230, #3a0174);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ANIMACIÓN DE ENTRADA */
+.container {
+    background: linear-gradient(135deg, #1d0152, #3a0174);
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(209, 83, 114, 0.3);
+    max-width: 700px;
+    width: 100%;
+    overflow: hidden;
+    animation: fadeIn 1.2s ease;
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    padding: 40px;
+}
+
+/* FOTO CON EFECTO */
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 5px solid rgb(96, 0, 175);
+    margin-bottom: 20px;
+    transition: transform 0.4s, box-shadow 0.4s;
+}
+
+/* HOVER FOTO */
+.profile-img:hover {
+    transform: scale(1.1) rotate(3deg);
+    box-shadow: 0 0 25px #ae00ff;
+}
+
+/* TEXTO */
+.header h1 {
+    color: #3d997a;
+    font-size: 28px;
+}
+
+.header p {
+    color: #ccc;
+    font-size: 14px;
+}
+
+/* CONTENIDO */
+.content {
+    padding: 30px;
+}
+
+/* SECCIONES CON ANIMACIÓN */
+.section {
+    margin-bottom: 25px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.8s forwards;
+}
+
+.section:nth-child(1) { animation-delay: 0.3s; }
+.section:nth-child(2) { animation-delay: 0.6s; }
+.section:nth-child(3) { animation-delay: 0.9s; }
+.section:nth-child(4) { animation-delay: 1.2s; }
+
+/* TITULOS */
+.section h2 {
+    color: #1d37ac;
+    border-bottom: 2px solid #000;
+    margin-bottom: 10px;
+}
+
+/* TEXTO */
+.about {
+    color: #379dd8;
+    line-height: 1.6;
+}
+
+/* SKILLS */
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* EFECTO HOVER PRO */
+.skill-tag {
+    background: linear-gradient(135deg, #050780, #3a0174);
+    color: #5f99c0;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.skill-tag:hover {
+    transform: translateY(-5px) scale(1.05);
+    background: #ae00ff;
+    color: white;
+}
+
+/* CONTACTO */
+.contact-list li {
+    color: #9162ff;
+    margin-bottom: 10px;
+}
+
+.contact-list a {
+    color: #137dd4;
+    text-decoration: none;
+}
+
+.contact-list a:hover {
+    text-decoration: underline;
+}
+
+/* BOTÓN */
+.back-button {
+    display: inline-block;
+    margin-top: 30px;
+    background: #3f0277;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.back-button:hover {
+    background: #ae00ff;
+    transform: scale(1.05);
+}
+
+/* ANIMACIONES */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ESTILOS DE LA VENTANA MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1d0152, #3a0174);
+    margin: auto;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    animation: modalFadeIn 0.4s ease;
+    border: 2px solid #ae00ff;
+    box-shadow: 0 0 30px rgba(174, 0, 255, 0.5);
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-modal:hover {
+    color: #ae00ff;
+    transform: scale(1.2);
+}
+
+.modal-content h3 {
+    color: #3d997a;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.modal-content p {
+    color: #ccc;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.modal-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <img src="https://i.pravatar.cc/200?u=anderson" alt="Avatar" class="profile-img">
+        <h1>Anderson Huarac</h1>
+        <p>Desarrollador Web & Estudiante de Programación</p>
+    </div>
+
+    <div class="content">
+
+        <div class="section">
+            <h2>👤 Acerca de mí</h2>
+            <p class="about">
+                Soy Anderson Huarac, apasionado por la tecnología y el desarrollo web. Estoy en mi camino para dominar las herramientas modernas de programación y crear soluciones innovadoras. Me encanta colaborar en equipo y aprender nuevas tecnologías cada día.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>💻 Habilidades</h2>
+            <div class="skills">
+                <span class="skill-tag" data-skill="HTML5">HTML5</span> 
+                <span class="skill-tag" data-skill="CSS3">CSS3</span> 
+                <span class="skill-tag" data-skill="JavaScript">JavaScript</span> 
+                <span class="skill-tag" data-skill="Git">Git & GitHub</span> 
+                <span class="skill-tag" data-skill="Responsive">Responsive</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📕 Intereses</h2>
+            <div class="skills">
+                <span class="skill-tag" data-skill="Frontend">Frontend Development</span> 
+                <span class="skill-tag" data-skill="UIUX">UI/UX Design</span> 
+                <span class="skill-tag" data-skill="WebPerf">Web Performance</span> 
+                <span class="skill-tag" data-skill="OpenSource">Open Source</span> 
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>☎ Contacto</h2> 
+            <ul class="contact-list"> 
+                <li>📧 Email: anderson.huarac@email.com</li> 
+                <li>💼 LinkedIn: <a href="#">linkedin.com/in/anderson-huarac</a></li> 
+                <li>🐙 GitHub: <a href="#">github.com/anderson-huarac</a></li> 
+            </ul> 
+        </div>
+
+        <a href="../index.html" class="back-button">← Volver</a>
+
+    </div>
+</div>
+
+<!-- VENTANA MODAL -->
+<div id="infoModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-icon" id="modalIcon">💡</div>
+        <h3 id="modalTitle">Información</h3>
+        <p id="modalText">Aquí aparecerá la descripción.</p>
+    </div>
+</div>
+
+<script>
+// Información detallada para cada habilidad/interés
+const infoData = {
+    HTML5: {
+        title: "HTML5",
+        text: "Lenguaje de marcado para estructurar contenido web. Manejo semántico, formularios, multimedia y APIs modernas como geolocalización y almacenamiento local.",
+        icon: "🌐"
+    },
+    CSS3: {
+        title: "CSS3",
+        text: "Estilos visuales y animaciones. Domino Flexbox, Grid, transiciones, responsive design y variables CSS para crear interfaces atractivas.",
+        icon: "🎨"
+    },
+    JavaScript: {
+        title: "JavaScript",
+        text: "Lenguaje de programación que da vida a las páginas. Manejo del DOM, eventos, asincronía, fetch API y conceptos modernos como arrow functions y destructuring.",
+        icon: "⚡"
+    },
+    Git: {
+        title: "Git & GitHub",
+        text: "Control de versiones para seguimiento de cambios. Trabajo con ramas, fusiones, repositorios remotos y colaboración en equipo mediante pull requests.",
+        icon: "🐙"
+    },
+    Responsive: {
+        title: "Responsive Design",
+        text: "Adapto sitios web a cualquier dispositivo (móvil, tablet, desktop) usando media queries, unidades relativas y diseño flexible.",
+        icon: "📱"
+    },
+    Frontend: {
+        title: "Frontend Development",
+        text: "Construcción de interfaces de usuario interactivas y eficientes. Enfoque en experiencia de usuario, optimización de carga y componentes reutilizables.",
+        icon: "🖥️"
+    },
+    UIUX: {
+        title: "UI/UX Design",
+        text: "Diseño centrado en el usuario para crear productos intuitivos. Maquetación, prototipado, wireframes y principios de usabilidad y accesibilidad.",
+        icon: "🎯"
+    },
+    WebPerf: {
+        title: "Web Performance",
+        text: "Optimización de velocidad de carga y rendimiento. Buenas prácticas: minificación, lazy loading, optimización de imágenes y reducción de solicitudes HTTP.",
+        icon: "🚀"
+    },
+    OpenSource: {
+        title: "Open Source",
+        text: "Contribución a proyectos públicos, colaboración con la comunidad, aprendizaje continuo y compartir código para mejorar herramientas colectivas.",
+        icon: "🌟"
+    }
+};
+
+// Obtener elementos
+const modal = document.getElementById("infoModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalText = document.getElementById("modalText");
+const modalIcon = document.getElementById("modalIcon");
+const closeModal = document.querySelector(".close-modal");
+
+// Función para abrir modal con información específica
+function showInfo(skillKey) {
+    const info = infoData[skillKey];
+    if (info) {
+        modalTitle.textContent = info.title;
+        modalText.textContent = info.text;
+        modalIcon.textContent = info.icon;
+        modal.style.display = "flex";
+    } else {
+        // Fallback si no encuentra
+        modalTitle.textContent = skillKey;
+        modalText.textContent = "Más información sobre " + skillKey + " próximamente.";
+        modalIcon.textContent = "📌";
+        modal.style.display = "flex";
+    }
+}
+
+// Agregar evento click a todos los elementos con clase "skill-tag"
+const skillTags = document.querySelectorAll(".skill-tag");
+skillTags.forEach(tag => {
+    tag.addEventListener("click", () => {
+        const skill = tag.getAttribute("data-skill");
+        if (skill) {
+            showInfo(skill);
+        }
+    });
+});
+
+// Cerrar modal al hacer clic en la X
+closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+// Cerrar modal si se hace clic fuera del contenido
+window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
+</script>
+
+</body>
+</html>
