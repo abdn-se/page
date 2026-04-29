@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harold James Pariona Gonzales — Dev</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563EB;
+            --primary-light: #DBEAFE;
+            --primary-dark: #1E40AF;
+            --accent: #10B981;
+            --accent-light: #D1FAE5;
+            --warm: #F59E0B;
+            --warm-light: #FEF3C7;
+            --surface: #F8FAFC;
+            --surface-alt: #FFFFFF;
+            --border: #E2E8F0;
+            --text: #0F172A;
+            --text-muted: #64748B;
+            --text-light: #94A3B8;
+            --tag-go: #3B82F6;
+            --tag-py: #10B981;
+            --tag-js: #F59E0B;
+            --tag-php: #8B5CF6;
+            --tag-java: #EF4444;
+            --tag-docker: #06B6D4;
+            --tag-linux: #F97316;
+            --tag-html: #EC4899;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--surface);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ── NAV ── */
+        nav {
+            background: var(--surface-alt);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-brand {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary);
+            letter-spacing: -0.03em;
+        }
+
+        .nav-brand span { color: var(--text); }
+
+        nav a.btn-nav {
+            background: var(--primary);
+            color: #fff;
+            text-decoration: none;
+            padding: 6px 18px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        nav a.btn-nav:hover { background: var(--primary-dark); }
+
+        /* ── HERO ── */
+        .hero {
+            background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 50%, #0EA5E9 100%);
+            padding: 70px 2rem 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px; left: -40px;
+            width: 240px; height: 240px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .hero-avatar {
+            width: 90px; height: 90px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            border: 3px solid rgba(255,255,255,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 auto 20px;
+            animation: fadeDown 0.6s ease both;
+        }
+
+        .hero h1 {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.04em;
+            animation: fadeDown 0.6s 0.1s ease both;
+        }
+
+        .hero-sub {
+            color: rgba(255,255,255,0.75);
+            font-size: 1rem;
+            margin-top: 8px;
+            animation: fadeDown 0.6s 0.2s ease both;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 22px;
+            animation: fadeDown 0.6s 0.3s ease both;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.18);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+        }
+
+        /* ── LAYOUT ── */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 2rem;
+            margin-top: 2.5rem;
+            margin-bottom: 3rem;
+            align-items: start;
+        }
+
+        /* ── CARD BASE ── */
+        .card {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            transition: box-shadow 0.25s, transform 0.25s;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 24px rgba(37, 99, 235, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title .icon {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .icon-blue { background: var(--primary-light); }
+        .icon-green { background: var(--accent-light); }
+        .icon-warm { background: var(--warm-light); }
+
+        .card-meta {
+            font-size: 0.78rem;
+            color: var(--text-light);
+            font-family: 'Fira Code', monospace;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ── TECNOLOGÍAS ── */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 1rem;
+        }
+
+        .tech-item {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            transition: border-color 0.2s, background 0.2s;
+            cursor: default;
+        }
+
+        .tech-item:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .tech-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        .tech-name {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .tech-desc {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ── SKILL BARS ── */
+        .skill-item {
+            margin-bottom: 14px;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .skill-bar {
+            height: 6px;
+            background: var(--border);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 0;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar-card {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-title {
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .contact-icon {
+            width: 32px; height: 32px;
+            background: var(--primary-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .contact-row a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-row a:hover { text-decoration: underline; }
+
+        .interest-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 0.5rem;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+
+        .tag-go    { background: #EFF6FF; color: var(--tag-go); border: 1px solid #BFDBFE; }
+        .tag-py    { background: #ECFDF5; color: var(--tag-py); border: 1px solid #A7F3D0; }
+        .tag-js    { background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A; }
+        .tag-php   { background: #F5F3FF; color: var(--tag-php); border: 1px solid #DDD6FE; }
+        .tag-java  { background: #FEF2F2; color: var(--tag-java); border: 1px solid #FECACA; }
+        .tag-dk    { background: #ECFEFF; color: var(--tag-docker); border: 1px solid #A5F3FC; }
+        .tag-lx    { background: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA; }
+        .tag-html  { background: #FDF2F8; color: var(--tag-html); border: 1px solid #FBCFE8; }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #0F172A;
+            color: rgba(255,255,255,0.55);
+            text-align: center;
+            padding: 24px;
+            font-size: 0.85rem;
+        }
+
+        footer a { color: rgba(255,255,255,0.75); text-decoration: none; }
+
+        /* ── ANIMACIONES ── */
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .tech-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-brand"><span>harold.</span>dev</div>
+    <a href="../index.html" class="btn-nav">← Inicio</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-avatar">HJ</div>
+    <h1>Harold James Pariona Gonzales</h1>
+    <p class="hero-sub">Desarrollador de Software · Estudiante SENATI · 5.° Semestre</p>
+    <div class="hero-badges">
+        <span class="badge">Go · JavaScript · Python</span>
+        <span class="badge">Big Data</span>
+        <span class="badge">Web &amp; Escritorio</span>
+        <span class="badge">Lima, Perú 🇵🇪</span>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+    <div class="grid">
+
+        <!-- COLUMNA PRINCIPAL -->
+        <main>
+
+            <!-- Perfil -->
+            <div class="card fade-in">
+                <div class="card-title">
+                    <div class="icon icon-blue">👤</div>
+                    Perfil profesional
+                </div>
+                <p class="card-meta">// actualizado 2026</p>
+                <p>
+                    Soy estudiante de Ingeniería de Software con IA en SENATI, cursando el 5.° semestre.
+                    He desarrollado diversas aplicaciones tanto de escritorio como web, con especial interés
+                    en el ecosistema de <strong>Go</strong> y <strong>JavaScript</strong>. Además, manejo
+                    <strong>Big Data</strong> y tengo capacidad para analizarlo en estudios de mercado.
+                </p>
+            </div>
+
+            <!-- Tecnologías -->
+            <div class="card fade-in">
+                <div class="card-title">
+                    <div class="icon icon-green">⚙️</div>
+                    Tecnologías que manejo
+                </div>
+                <p class="card-meta">// stack técnico 2026</p>
+
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <div class="tech-dot" style="background:#3B82F6;"></div>
+                        <div>
+                            <div class="tech-name">Go (Golang)</div>
+                            <div class="tech-desc">Backend, CLI tools, Wails, Vite-Go</div>
+                        </div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-dot" style="background:#10B981;"></div>
+                        <div>
+                            <div class="tech-name">Python</div>
+                            <div class="tech-desc">Análisis de Big Data, creación de IA</div>
+                        </div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-dot" style="background:#F59E0B;"></div>
+                        <div>
+                            <div class="tech-name">JavaScript</div>
+                            <div class="tech-desc">Dinamismo e interactividad web</div>
+                        </div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-dot" style="background:#8B5CF6;"></div>
+                        <div>
+                            <div class="tech-name">PHP / Laravel</div>
+                            <div class="tech-desc">Aplicaciones web, APIs REST</div>
+                        </div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-dot" style="background:#EF4444;"></div>
+                        <div>
+                            <div class="tech-name">Java</div>
+                            <div class="tech-desc">Aplicaciones de escritorio (contable)</div>
+                        </div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-dot" style="background:#EC4899;"></div>
+                        <div>
+                            <div class="tech-name">HTML / CSS</div>
+                            <div class="tech-desc">Estructura y estilos de interfaces</div>
+                        </div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-dot" style="background:#06B6D4;"></div>
+                        <div>
+                            <div class="tech-name">Docker</div>
+                            <div class="tech-desc">Trabajo en equipo, despliegue real</div>
+                        </div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-dot" style="background:#F97316;"></div>
+                        <div>
+                            <div class="tech-name">Linux</div>
+                            <div class="tech-desc">Servidores locales, open source</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nivel de dominio -->
+            <div class="card fade-in">
+                <div class="card-title">
+                    <div class="icon icon-warm">📊</div>
+                    Nivel de dominio
+                </div>
+                <p class="card-meta">// autoevaluación técnica</p>
+
+                <div style="margin-top: 1rem;">
+                    <div class="skill-item">
+                        <div class="skill-header"><span>Go (Golang)</span><span style="color:var(--primary)">85%</span></div>
+                        <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header"><span>JavaScript</span><span style="color:var(--primary)">80%</span></div>
+                        <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header"><span>Python / Big Data</span><span style="color:var(--primary)">75%</span></div>
+                        <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header"><span>Docker / Linux</span><span style="color:var(--primary)">70%</span></div>
+                        <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header"><span>PHP / Laravel</span><span style="color:var(--primary)">65%</span></div>
+                        <div class="skill-bar"><div class="skill-fill" data-width="65"></div></div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- SIDEBAR -->
+        <aside>
+
+            <div class="sidebar-card fade-in">
+                <p class="sidebar-title">Sobre mí</p>
+                <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.7;">
+                    Estudiante y desarrollador en formación. Me apasiona la programación,
+                    los gatos y mantenerme al día con las últimas tecnologías. Disfruto
+                    tanto de crear como de aprender algo nuevo cada día.
+                </p>
+                <div class="interest-tags" style="margin-top:1rem;">
+                    <span class="tag tag-go">Programación</span>
+                    <span class="tag tag-py">Open Source</span>
+                    <span class="tag tag-lx">Linux</span>
+                    <span class="tag tag-dk">DevOps</span>
+                </div>
+            </div>
+
+            <div class="sidebar-card fade-in">
+                <p class="sidebar-title">Contacto</p>
+                <div class="contact-row">
+                    <div class="contact-icon">✉️</div>
+                    <a href="mailto:haroldgonzales987@gmail.com">haroldgonzales987@gmail.com</a>
+                </div>
+                <div class="contact-row">
+                    <div class="contact-icon">🐙</div>
+                    <a href="https://github.com/neimboy" target="_blank">github.com/neimboy</a>
+                </div>
+                <div class="contact-row">
+                    <div class="contact-icon">📄</div>
+                    <a href="https://cv-virtual-beta.vercel.app" target="_blank">CV en línea</a>
+                </div>
+            </div>
+
+            <div class="sidebar-card fade-in">
+                <p class="sidebar-title">Stack favorito</p>
+                <div class="interest-tags">
+                    <span class="tag tag-go">Go</span>
+                    <span class="tag tag-js">JavaScript</span>
+                    <span class="tag tag-py">Python</span>
+                    <span class="tag tag-dk">Docker</span>
+                    <span class="tag tag-lx">Linux</span>
+                    <span class="tag tag-php">Laravel</span>
+                    <span class="tag tag-java">Java</span>
+                    <span class="tag tag-html">HTML/CSS</span>
+                </div>
+            </div>
+
+            <div class="sidebar-card fade-in" style="background:linear-gradient(135deg,#1E3A8A,#2563EB); border-color:transparent;">
+                <p class="sidebar-title" style="color:rgba(255,255,255,0.6);">Formación</p>
+                <p style="font-size:0.9rem; font-weight:600; color:#fff;">SENATI</p>
+                <p style="font-size:0.82rem; color:rgba(255,255,255,0.7); margin-top:4px;">
+                    Ingeniería de Software con IA<br>
+                    5.° Semestre · 2026
+                </p>
+            </div>
+
+        </aside>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Harold James Pariona Gonzales &nbsp;·&nbsp;
+        <a href="https://github.com/neimboy">GitHub</a> &nbsp;·&nbsp;
+        <a href="https://cv-virtual-beta.vercel.app">CV</a>
+    </p>
+</footer>
+
+<script>
+    // Intersection Observer para fade-in
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, i * 80);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Animar barras de habilidades
+    const barObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+                    bar.style.width = bar.dataset.width + '%';
+                });
+                barObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.card').forEach(card => {
+        if (card.querySelector('.skill-fill')) barObserver.observe(card);
+    });
+</script>
+</body>
+</html>
