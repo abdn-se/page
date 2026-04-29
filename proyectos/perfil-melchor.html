@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil – [Tu Nombre]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+
+        :root {
+            --bg:        #0a0a0c;
+            --surface:   #111115;
+            --border:    #1e1e26;
+            --text:      #d6d0c4;
+            --muted:     #5a5660;
+            --accent:    #b8975a;   /* gold */
+            --accent2:   #4a6fa5;  /* steel blue */
+            --bright:    #ede8df;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* ── Noise texture overlay ── */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ── Ambient glow ── */
+        .glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(184,151,90,0.06) 0%, transparent 70%);
+            top: -150px;
+            right: -150px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .glow2 {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(74,111,165,0.05) 0%, transparent 70%);
+            bottom: 0;
+            left: -100px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── Back button ── */
+        .back-btn {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .back-btn::before {
+            content: '←';
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+        .back-btn:hover { color: var(--accent); }
+        .back-btn:hover::before { transform: translateX(-4px); }
+
+        /* ── Promo tag top right ── */
+        .promo-tag {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 100;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid rgba(184,151,90,0.3);
+            padding: 0.4rem 0.9rem;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            align-items: end;
+            gap: 0;
+            padding: 0 4rem 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-text {
+            padding-bottom: 0.5rem;
+            animation: fadeUp 0.9s ease both;
+        }
+
+        .eyebrow {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.62rem;
+            font-weight: 400;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 40px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        h1.nombre {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(5rem, 10vw, 9rem);
+            line-height: 0.9;
+            letter-spacing: 0.02em;
+            color: var(--bright);
+            margin-bottom: 2rem;
+        }
+        h1.nombre span {
+            display: block;
+            color: var(--accent);
+        }
+
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .hero-meta .carrera {
+            font-size: 0.8rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+        .hero-meta .divider { color: var(--border); }
+
+        /* ── Photo panel ── */
+        .photo-panel {
+            position: relative;
+            height: 100vh;
+            animation: fadeIn 1.2s ease both;
+        }
+        .photo-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            filter: grayscale(30%) brightness(0.8) contrast(1.1);
+            display: block;
+            transition: filter 0.6s;
+        }
+        .photo-panel:hover img {
+            filter: grayscale(0%) brightness(0.85) contrast(1.05);
+        }
+
+        /* Gold line on photo */
+        .photo-panel::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+            z-index: 2;
+        }
+
+        /* Number overlay */
+        .photo-panel .number {
+            position: absolute;
+            bottom: 3rem;
+            right: 2rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 8rem;
+            color: rgba(255,255,255,0.04);
+            line-height: 1;
+            z-index: 1;
+            user-select: none;
+        }
+
+        /* ── Content ── */
+        .content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            min-height: 100vh;
+        }
+
+        .content-main {
+            padding: 4rem;
+            border-right: 1px solid var(--border);
+        }
+
+        .content-aside {
+            padding: 4rem 3rem;
+        }
+
+        /* ── Quote ── */
+        .quote {
+            margin-bottom: 4rem;
+            padding-left: 2rem;
+            border-left: 2px solid var(--accent);
+            animation: fadeUp 0.9s 0.2s ease both;
+        }
+        .quote p {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: var(--bright);
+            font-weight: 300;
+            margin-bottom: 0.75rem;
+        }
+        .quote cite {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.62rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* ── Section ── */
+        .section {
+            margin-bottom: 3rem;
+            animation: fadeUp 0.9s 0.3s ease both;
+        }
+        .section-label {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .section p {
+            font-size: 0.92rem;
+            line-height: 1.9;
+            color: var(--text);
+            font-weight: 300;
+        }
+
+        /* ── Skills bars ── */
+        .skills-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .skill-item { }
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.4rem;
+        }
+        .skill-name {
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+        .skill-pct {
+            font-size: 0.65rem;
+            color: var(--muted);
+        }
+        .skill-track {
+            height: 1px;
+            background: var(--border);
+            position: relative;
+        }
+        .skill-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: linear-gradient(to right, var(--accent), var(--accent2));
+            transform-origin: left;
+            animation: growBar 1.2s 0.5s ease both;
+        }
+        @keyframes growBar {
+            from { transform: scaleX(0); }
+            to   { transform: scaleX(1); }
+        }
+
+        /* ── Stats ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            margin-bottom: 3rem;
+            animation: fadeUp 0.9s 0.4s ease both;
+        }
+        .stat {
+            background: var(--surface);
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.4s ease;
+        }
+        .stat:hover::after { width: 100%; }
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: var(--bright);
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+        .stat-num sup {
+            font-size: 1rem;
+            color: var(--accent);
+            vertical-align: super;
+        }
+        .stat-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* ── Social links (aside) ── */
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            animation: fadeUp 0.9s 0.35s ease both;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .social-link::before {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(to right, transparent, rgba(184,151,90,0.04));
+            transition: left 0.4s ease;
+        }
+        .social-link:hover { color: var(--accent); }
+        .social-link:hover::before { left: 0; }
+        .social-link .arrow { font-size: 0.8rem; transition: transform 0.3s; }
+        .social-link:hover .arrow { transform: translate(3px, -3px); }
+
+        /* ── Project highlight ── */
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 1.8rem;
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp 0.9s 0.45s ease both;
+            transition: border-color 0.3s;
+        }
+        .project-card:hover { border-color: rgba(184,151,90,0.4); }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px;
+            height: 0;
+            background: var(--accent);
+            transition: height 0.4s ease;
+        }
+        .project-card:hover::before { height: 100%; }
+        .project-type {
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+        .project-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--bright);
+            margin-bottom: 0.75rem;
+        }
+        .project-desc {
+            font-size: 0.82rem;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .hero, .content {
+                grid-template-columns: 1fr;
+            }
+            .hero {
+                padding: 7rem 1.5rem 2.5rem;
+                min-height: auto;
+                align-items: start;
+            }
+            .photo-panel {
+                height: 70vw;
+                min-height: 280px;
+                order: -1;
+            }
+            h1.nombre { font-size: 4.5rem; }
+            .content-main, .content-aside {
+                padding: 2.5rem 1.5rem;
+            }
+            .content-main { border-right: none; border-bottom: 1px solid var(--border); }
+            .promo-tag { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow"></div>
+    <div class="glow2"></div>
+
+    <a class="back-btn" href="../index.html">Galería</a>
+    <div class="promo-tag">Promo 2026</div>
+
+    <!-- ══ HERO ══ -->
+    <section class="hero">
+        <div class="hero-text">
+            <p class="eyebrow">Anuario Colaborativo 2026</p>
+
+            <!-- 🔧 Tu nombre. El <span> va en dorado -->
+            <h1 class="nombre">
+                Beck<br>
+                <span>Melchor Contreras</span>
+            </h1>
+
+            <div class="hero-meta">
+                <!-- 🔧 Tu carrera -->
+                <span class="carrera">Ingeniería de Software con IA</span>
+                <span class="divider">·</span>
+                <!-- 🔧 Tu ciudad -->
+                <span class="carrera">Huancayo, Perú</span>
+            </div>
+        </div>
+
+        <!-- 🔧 Tu foto -->
+        <div class="photo-panel">
+            <img src="../image/kjhfgd.jpg" alt="Beck Melchor"
+                 onerror="this.src='https://i.pravatar.cc/600?u=carlos-hombre'">
+            <div class="number">01</div>
+        </div>
+    </section>
+
+    <!-- ══ CONTENIDO ══ -->
+    <div class="content">
+
+        <!-- Columna principal -->
+        <main class="content-main">
+
+            <!-- Cita -->
+            <blockquote class="quote">
+                <!-- 🔧 Tu frase o cita favorita -->
+                <p>El código es poesía escrita en lógica; cada línea, una decisión con consecuencias.</p>
+                <cite>— Beck, 2026</cite>
+            </blockquote>
+
+            <!-- Sobre mí -->
+            <div class="section">
+                <p class="section-label">Sobre mí</p>
+                <!-- 🔧 Preséntate en 2–3 oraciones -->
+                <p>
+                    Desarrollador apasionado por construir sistemas que escalen y solucionen problemas reales.
+                    A lo largo de la carrera descubrí que la mejor arquitectura es la que nadie nota porque
+                    simplemente funciona. Fuera del código me encuentras leyendo filosofía o en una cancha de fútbol.
+                </p>
+            </div>
+
+            <!-- Habilidades -->
+            <div class="section">
+                <p class="section-label">Habilidades técnicas</p>
+                <div class="skills-list">
+                    <!-- 🔧 Ajusta nombre y porcentaje -->
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Python </span>
+                            <span class="skill-pct">90%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="width:90%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name"> JavaScript</span>
+                            <span class="skill-pct">80%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="width:80%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">C++ / Java</span>
+                            <span class="skill-pct">75%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="width:75%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Docker / AWS</span>
+                            <span class="skill-pct">65%</span>
+                        </div>
+                        <div class="skill-track"><div class="skill-fill" style="width:65%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <!-- 🔧 Cambia números y etiquetas -->
+                <div class="stat">
+                    <div class="stat-num">2<sup>+</sup></div>
+                    <div class="stat-label">Proyectos completados</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">3</div>
+                    <div class="stat-label">Años de carrera</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">2</div>
+                    <div class="stat-label">Practicas diarias</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">∞</div>
+                    <div class="stat-label">Bugs/Errores futuros</div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Columna lateral -->
+        <aside class="content-aside">
+
+            <!-- Proyecto destacado -->
+            <p class="section-label" style="font-family:'Jost',sans-serif;font-size:0.6rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem;">Proyecto destacado</p>
+            <div class="project-card" style="margin-bottom:3rem;">
+                <!-- 🔧 Describe tu mejor proyecto -->
+                <p class="project-type">Aplicación web · 2025</p>
+                <p class="project-name">Sistema de Gestión de Inventarios</p>
+                <p class="project-desc">
+                    Plataforma en tiempo real para rastreo de stock en múltiples almacenes,
+                    reduciendo tiempos de consulta en un 60%.
+                </p>
+            </div>
+
+            <!-- Contacto / Redes -->
+            <p class="section-label" style="font-family:'Jost',sans-serif;font-size:0.6rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);margin-bottom:0;">Contacto</p>
+            <nav class="social-links">
+                <!-- 🔧 Agrega tus links reales -->
+                <a class="social-link" href="https://linkedin.com/in/tu-usuario" target="_blank">
+                    LinkedIn <span class="arrow">↗</span>
+                </a>
+                <a class="social-link" href="https://github.com/tu-usuario" target="_blank">
+                    GitHub <span class="arrow">↗</span>
+                </a>
+                <a class="social-link" href="https://tu-portfolio.dev" target="_blank">
+                    Portfolio <span class="arrow">↗</span>
+                </a>
+                <a class="social-link" href="mailto:tu@correo.com">
+                    Email <span class="arrow">↗</span>
+                </a>
+            </nav>
+
+        </aside>
+
+    </div>
+
+</body>
+</html>
