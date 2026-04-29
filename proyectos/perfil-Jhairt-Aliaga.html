@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jhairt Chavez Aliaga | Portafolio Interactivo</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #38bdf8;
+            --accent: #10b981;
+            --bg: #020617;
+            --glass: rgba(15, 23, 42, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 50px 20px;
+            overflow-x: hidden;
+        }
+
+        #tsparticles { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
+
+        /* CONTENEDOR PRINCIPAL INTERACTIVO */
+        .main-wrapper {
+            max-width: 1000px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* EFECTO DE ONDA (RIPPLE) AL HACER CLICK */
+        .ripple {
+            position: absolute;
+            background: rgba(56, 189, 248, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            animation: rippleAnim 0.8s ease-out forwards;
+            z-index: 99;
+        }
+
+        @keyframes rippleAnim {
+            from { width: 0; height: 0; opacity: 1; }
+            to { width: 1000px; height: 1000px; opacity: 0; }
+        }
+
+        /* HEADER */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        /* FOTO CON BORDE ANIMADO */
+        .img-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            border-radius: 30px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+        }
+
+        .img-container::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(var(--primary), var(--accent), #a855f7, var(--primary));
+            animation: rotateBorder 4s linear infinite;
+        }
+
+        .img-container::after {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            background: var(--bg);
+            border-radius: 25px;
+            z-index: 1;
+        }
+
+        .img-container img {
+            position: relative;
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+            margin: 5px;
+            border-radius: 22px;
+            object-fit: cover;
+            z-index: 2;
+        }
+
+        @keyframes rotateBorder {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header-text h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline { color: var(--primary); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; }
+
+        .meta-info { display: flex; gap: 20px; color: var(--text-muted); margin-top: 15px; font-size: 0.9rem; }
+        .meta-info i { color: var(--primary); }
+
+        /* GRID DE TARJETAS */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .info-box {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 25px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden; /* Para que la onda no se salga de las cajas pequeñas si haces clic en ellas */
+        }
+
+        .info-box:hover {
+            border-color: var(--primary);
+            background: rgba(56, 189, 248, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .passion-card {
+            grid-column: span 2;
+            border-left: 5px solid var(--primary);
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent);
+        }
+
+        .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
+        .pill {
+            background: rgba(255,255,255,0.05);
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border);
+            font-weight: 500;
+        }
+
+        .project-item { margin-bottom: 15px; }
+        .project-item strong { display: block; color: #fff; }
+        .project-item small { color: var(--text-muted); }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-group a { color: var(--text-muted); font-size: 1.5rem; margin-right: 20px; transition: 0.3s; }
+        .social-group a:hover { color: var(--primary); }
+
+        .btn-back {
+            background: #fff;
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-back:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(255,255,255,0.1); }
+
+        @media (max-width: 800px) {
+            .profile-header { flex-direction: column; text-align: center; }
+            .grid { grid-template-columns: 1fr; }
+            .passion-card { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body id="click-area">
+
+    <div id="tsparticles"></div>
+
+    <div class="main-wrapper">
+        
+        <header class="profile-header">
+            <div class="img-container">
+                <img src="../image/perfil.jpg.jpeg" alt="Jhairt Aliaga">
+            </div>
+            <div class="header-text">
+                <h1>Jhairt Chavez Aliaga</h1>
+                <div class="tagline">Ingenieria de Software con Inteligencia Artificial</div>
+                <div class="meta-info">
+                    <span><i class="fas fa-user"></i> 19 años</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Huancayo, Perú</span>
+                    <span><i class="fas fa-graduation-cap"></i> V Semestre</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid">
+            <div class="info-box passion-card" data-tilt>
+                <h2><i class="fas fa-rocket"></i> Core Passion</h2>
+                <p>Mi enfoque principal es el <strong>Desarrollo de Aplicaciones Móviles</strong>. Me apasiona transformar ideas complejas en interfaces sencillas y de alto rendimiento.</p>
+            </div>
+
+            <div class="info-box" data-tilt>
+                <h2><i class="fas fa-user-tie"></i> Perfil Profesional</h2>
+                <p>Estudiante de SENATI enfocado en arquitectura <strong>MVC</strong>, lógica de negocio y soluciones IoT. Aplico metodologías ágiles para el desarrollo de software.</p>
+            </div>
+
+            <div class="info-box" data-tilt>
+                <h2><i class="fas fa-laptop-code"></i> Tech Stack</h2>
+                <div class="pills">
+                    <span class="pill">Android / Java</span>
+                    <span class="pill">PHP / Laravel</span>
+                    <span class="pill">MySQL / SQL Server</span>
+                    <span class="pill">GitHub / Git</span>
+                </div>
+            </div>
+
+            <div class="info-box" data-tilt>
+                <h2><i class="fas fa-project-diagram"></i> Proyectos Top</h2>
+                <div class="project-item">
+                    <strong>EMPRESARIOTEC S.A</strong>
+                    <small>Sistema IoT de seguridad en tiempo real.</small>
+                </div>
+                <div class="project-item">
+                    <strong>Aula Virtual</strong>
+                    <small>Portal educativo con PHP y MVC.</small>
+                </div>
+            </div>
+
+            <div class="info-box" data-tilt>
+                <h2><i class="fas fa-brain"></i> Soft Skills</h2>
+                <div class="pills">
+                    <span class="pill">Pensamiento Crítico</span>
+                    <span class="pill">Autoaprendizaje</span>
+                    <span class="pill">Trabajo en Equipo</span>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="social-group">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:tu-correo@senati.pe"><i class="fas fa-envelope"></i></a>
+            </div>
+            <a href="../index.html" class="btn-back">
+                <i class="fas fa-chevron-left"></i> Volver al Anuario
+            </a>
+        </footer>
+    </div>
+
+    <script>
+        /* EFECTO DE ONDA AL HACER CLICK EN CUALQUIER PARTE */
+        document.addEventListener('mousedown', function(e) {
+            const ripple = document.createElement('div');
+            ripple.classList.add('ripple');
+            document.body.appendChild(ripple);
+
+            ripple.style.left = `${e.clientX}px`;
+            ripple.style.top = `${e.clientY}px`;
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 800);
+        });
+
+        /* PARTÍCULAS DE FONDO */
+        tsParticles.load("tsparticles", {
+            fpsLimit: 60,
+            particles: {
+                number: { value: 50, density: { enable: true, value_area: 800 } },
+                color: { value: "#38bdf8" },
+                links: { enable: true, distance: 150, color: "#38bdf8", opacity: 0.2 },
+                move: { enable: true, speed: 1 }
+            },
+            interactivity: {
+                events: { onhover: { enable: true, mode: "grab" } }
+            }
+        });
+
+        /* EFECTO 3D EN LAS TARJETAS */
+        VanillaTilt.init(document.querySelectorAll(".info-box"), {
+            max: 5,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.2
+        });
+    </script>
+</body>
+</html>
