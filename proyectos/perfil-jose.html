@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Perfil</title>
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+
+  h1 {
+    color: #38bdf8;
+  }
+
+  img {
+    width: 150px;
+    border-radius: 50%;
+    margin: 15px 0;
+  }
+
+  p {
+    max-width: 400px;
+    margin: auto;
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background: #38bdf8;
+    color: black;
+    text-decoration: none;
+    border-radius: 8px;
+  }
+
+  a:hover {
+    background: #0ea5e9;
+  }
+</style>
+</head>
+<body>
+
+  <h1>Jose Alberto Chiuyari</h1>
+
+  <img src="img/foto.jpg" alt="Mi foto">
+
+  <p>
+    Soy estudiante de programación y me interesa el desarrollo web.
+    <a href="#">LinkedIn</a> |
+  <a href="#">GitHub</a>
+  </p>
+
+  <a href="../index.html">Volver al Anuario</a>
+
+  <script>
+  alert("Bienvenido a mi perfil 👋");
+
+  const nombre = document.querySelector("h1");
+
+  nombre.addEventListener("mouseover", () => {
+    nombre.style.color = "yellow";
+  });
+
+  nombre.addEventListener("mouseout", () => {
+    nombre.style.color = "#38bdf8";
+  });
+</script>
+
+</body>
+</html>

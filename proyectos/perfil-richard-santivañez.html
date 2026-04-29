@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Richard Santivañez</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-image: url('../image/fondos-de-montanas-kfpok0pdo9yd6ha7.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card-container {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            margin-bottom: 25px;
+            /* La tarjeta entera ahora tiene un fondo base sutil */
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Cabecera: Ahora transparente */
+        .card-header {
+            padding: 15px 20px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .username-top {
+            font-weight: 600;
+            font-size: 16px;
+            color: #1a1a1a;
+        }
+
+        /* Contenedor de foto: Transparente para que se vea el fondo */
+        .photo-placeholder {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Sección de Información: Transparencia ajustada */
+        .info-section {
+            background-color: rgba(255, 255, 255, 0.62);
+            padding: 20px;
+        }
+
+        .profile-pitch {
+            font-size: 14px;
+            color: #333;
+            font-style: italic;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            border-left: 3px solid #2e7d32; /* Verde suave para combinar */
+            padding-left: 10px;
+        }
+
+        .user-data {
+            list-style: none;
+            line-height: 1.8;
+            font-size: 15px;
+            color: #262626;
+        }
+
+        .user-data li strong {
+            color: #000;
+        }
+
+        /* Botón de retorno con efecto verde suave al pasar el mouse */
+        .btn-back {
+            background-color: #ffffff;
+            color: #262626;
+            padding: 12px 28px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 1px solid #dbdbdb;
+        }
+
+        .btn-back:hover {
+            /* Verde esmeralda muy suave para no cansar la vista */
+            background-color: #e8f5e9; 
+            color: #2e7d32;
+            border-color: #a5d6a7;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        <div class="card-header">
+            <span class="username-top">richard.santivañez</span>
+        </div>
+
+        <div class="photo-placeholder">
+            <img src="../image/richardsantivañez.jpg" alt="Richard Santivañez">
+        </div>
+
+        <div class="info-section">
+            <p class="profile-pitch">
+                "Ingeniero de Software en formación enfocado en soluciones de IA y automatización con Python. Estudiante de 5to semestre en SENATI."
+            </p>
+
+            <ul class="user-data">
+                <li><strong>Nombre:</strong> Richard Abel Santivañez Lazaro</li>
+                <li><strong>Edad:</strong> 19 años</li>
+                <li><strong>Ubicación:</strong> Huancayo - Perú</li>
+                <li><strong>Python Stack:</strong> Especializado en Backend y modelos de IA.</li>
+                <li><strong>Intereses:</strong> Gaming, cine y música.</li>
+                <li><strong>Favorito:</strong> No hay bug que un buen Ceviche no pueda arreglar.</li>
+            </ul>
+        </div>
+    </div>
+
+    <a href="../index.html" class="btn-back">Volver al Anuario</a>
+
+    <script>
+        const datosParaIndexHTML = {
+            nombre: "Richard Santivañez",
+            imagen: "image/richardsantivañez.jpg", 
+            archivo: "perfil-richard-santivañez.html"
+        };
+        console.log("Copia esto en index.html:", datosParaIndexHTML);
+    </script>
+</body>
+</html>
