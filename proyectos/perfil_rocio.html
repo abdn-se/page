@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil - Rocío</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --ink: #1a1523;
+      --purple: #2285ac;
+      --purple-mid: #5c9ff6;
+      --purple-light: #ede9fe;
+      --muted: #78716c;
+      --border: #e8e4f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f0ecfa;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 400px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(109,40,217,0.06), 0 12px 40px rgba(109,40,217,0.10);
+      animation: rise 0.6s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .header-band {
+      height: 80px;
+      background: linear-gradient(135deg, #257aa1 0%, #3b91ac 60%, #59daeb 100%);
+      position: relative;
+    }
+
+    .header-band::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Ccircle cx='30' cy='30' r='20' fill='%23ffffff' fill-opacity='0.06'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .avatar-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: -44px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background-image: url('https://cdn0.expertoanimal.com/es/posts/5/9/5/caracteristicas_del_gato_carey_25595_1_600.jpg');
+      background-size: cover;
+      background-position: center;
+      border: 4px solid white;
+      box-shadow: 0 4px 16px rgba(109,40,217,0.18);
+    }
+
+    .avatar-wrap .status {
+      position: absolute;
+      bottom: 4px;
+      right: calc(50% - 44px + 4px);
+      width: 14px;
+      height: 14px;
+      background: #22c55e;
+      border: 2.5px solid white;
+      border-radius: 50%;
+    }
+
+    .body {
+      padding: 1rem 1.8rem 1.8rem;
+      text-align: center;
+    }
+
+    .name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.75rem;
+      color: var(--ink);
+      margin-top: 0.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    .role {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--purple);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-top: 2px;
+    }
+
+    .location {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 1.2rem 0;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .skill-tag {
+      background: var(--purple-light);
+      color: var(--purple);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    .bio {
+      font-size: 0.88rem;
+      color: #57534e;
+      line-height: 1.65;
+      margin-bottom: 1.2rem;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.2rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat { text-align: center; }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.6rem;
+      margin-top: 1.2rem;
+    }
+
+    .hobbies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .hobby {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #faf9ff;
+      border: 1.5px solid var(--border);
+      color: var(--ink);
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 100px;
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    .hobby:hover {
+      border-color: var(--purple-mid);
+      background: var(--purple-light);
+      color: var(--purple);
+      transform: translateY(-2px);
+    }
+
+    .hobby-icon { font-size: 14px; }
+
+    .email-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-bottom: 1rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .email-row i { color: var(--purple); font-size: 13px; }
+
+    .email-row a {
+      color: var(--purple);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .email-row a:hover { text-decoration: underline; }
+
+    .social {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 1.3rem;
+    }
+
+    .social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 15px;
+      text-decoration: none;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .social a:hover {
+      border-color: var(--purple);
+      color: var(--purple);
+      background: var(--purple-light);
+      transform: translateY(-2px);
+    }
+
+    .social a.gh:hover  { border-color:#333; color:#333; background:#f3f4f6; }
+    .social a.li:hover  { border-color:#0a66c2; color:#0a66c2; background:#e8f0fe; }
+    .social a.tw:hover  { border-color:#000; color:#000; background:#f3f4f6; }
+    .social a.ig:hover  { border-color:#e1306c; color:#e1306c; background:#fce4ec; }
+    .social a.yt:hover  { border-color:#ff0000; color:#ff0000; background:#ffebee; }
+    .social a.tt:hover  { border-color:#010101; color:#010101; background:#f3f4f6; }
+    .social a.dc:hover  { border-color:#5865f2; color:#5865f2; background:#eef0fd; }
+    .social a.wb:hover  { border-color:#25d366; color:#25d366; background:#e8f8f0; }
+
+    .buttons {
+      display: flex;
+      flex-direction: column; /* Apilamos para que el de regresar destaque abajo o quepa mejor */
+      gap: 10px;
+    }
+
+    .btn-group-top {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-primary, .btn-secondary, .btn-back {
+      padding: 11px;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      flex: 1;
+      background: var(--purple);
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--purple-mid);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(109,40,217,0.28);
+    }
+
+    .btn-secondary {
+      flex: 1;
+      background: transparent;
+      color: var(--purple);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--purple);
+      background: var(--purple-light);
+    }
+
+    /* Estilo del nuevo botón Regresar */
+    .btn-back {
+      background: #f3f4f6;
+      color: var(--muted);
+      border: 1.5px solid var(--border);
+      width: 100%;
+    }
+
+    .btn-back:hover {
+      background: #e5e7eb;
+      color: var(--ink);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--ink);
+      color: white;
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), opacity 0.4s;
+      opacity: 0;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="header-band"></div>
+
+    <div class="avatar-wrap">
+      <div class="avatar"></div>
+      <span class="status"></span>
+    </div>
+
+    <div class="body">
+      <div class="name">Rocío</div>
+      <div class="role">Frontend Developer · En formación</div>
+      <div class="location">
+        <i class="fas fa-map-pin" style="font-size:11px;color:#a78bfa"></i>
+        Lima, Perú
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="skills">
+        <span class="skill-tag">HTML & CSS</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">Diseño web</span>
+      </div>
+
+      <p class="bio">
+        Aprendiendo Git y desarrollo web construyendo proyectos reales.
+        Apasionada por crear interfaces limpias y funcionales.
+      </p>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num">12</div>
+          <div class="stat-label">Proyectos</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Meses activa</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Ganas</div>
+        </div>
+      </div>
+
+      <div class="section-label">Pasiones & Hobbies</div>
+      <div class="hobbies">
+        <span class="hobby"><span class="hobby-icon">💻</span> Programar</span>
+        <span class="hobby"><span class="hobby-icon">🎨</span> Diseño UI</span>
+        <span class="hobby"><span class="hobby-icon">📚</span> Aprender</span>
+        <span class="hobby"><span class="hobby-icon">🎮</span> Videojuegos</span>
+        <span class="hobby"><span class="hobby-icon">🎵</span> Música</span>
+        <span class="hobby"><span class="hobby-icon">🐱</span> Gatitos</span>
+      </div>
+
+      <div class="email-row">
+        <i class="fas fa-envelope"></i>
+        <a href="mailto:rocioeguavel@gmail.com">rocioeguavel@gmail.com</a>
+      </div>
+
+      <div class="section-label">Encuéntrame en</div>
+      <div class="social">
+        <a href="https://github.com" target="_blank" class="gh" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com" target="_blank" class="li" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://twitter.com" target="_blank" class="tw" title="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://instagram.com" target="_blank" class="ig" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://youtube.com" target="_blank" class="yt" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://tiktok.com" target="_blank" class="tt" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://discord.com" target="_blank" class="dc" title="Discord"><i class="fab fa-discord"></i></a>
+        <a href="https://wa.me/51999999999" target="_blank" class="wb" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+
+      <!-- SECCIÓN DE BOTONES ACTUALIZADA -->
+      <div class="buttons">
+        <div class="btn-group-top">
+            <button class="btn-primary" id="btnSaludar">Saludar</button>
+            <a href="mailto:rocioeguavel@gmail.com" class="btn-secondary">Contactar</a>
+        </div>
+        <!-- Botón para regresar al anuario principal -->
+        <a href="../index.html" class="btn-back">
+            <i class="fas fa-arrow-left" style="margin-right: 8px; font-size: 12px;"></i> 
+            Regresar 
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">¡Gracias por visitar mi perfil! 🚀</div>
+
+  <script>
+    const btn   = document.getElementById('btnSaludar');
+    const toast = document.getElementById('toast');
+    let timer;
+
+    btn.addEventListener('click', () => {
+      toast.classList.add('show');
+      clearTimeout(timer);
+      timer = setTimeout(() => toast.classList.remove('show'), 3000);
+    });
+  </script>
+</body>
+</html>
