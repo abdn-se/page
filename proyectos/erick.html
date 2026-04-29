@@ -23,6 +23,7 @@
       align-items: center;
       justify-content: center;
       padding: 1.5rem;
+      position: relative;
     }
 
     /* contenedor principal */
@@ -46,6 +47,39 @@
       padding: 2rem 1.5rem 1.2rem 1.5rem;
       text-align: center;
       border-bottom: 4px solid #f4bc5c;
+      position: relative;
+    }
+
+    /* Botón de regresar - enlace a documento específico */
+    .back-button {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
+      border: none;
+      color: white;
+      font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      z-index: 10;
+    }
+
+    .back-button i {
+      font-size: 0.9rem;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 255, 255, 0.35);
+      transform: translateX(-2px);
     }
 
     /* Contenedor de la imagen de perfil real */
@@ -60,7 +94,7 @@
       box-shadow: 0 8px 14px rgba(0,0,0,0.2);
       border: 3px solid white;
       overflow: hidden;
-      background: #f4bc5c; /* color de fondo por si falla la imagen */
+      background: #f4bc5c;
     }
 
     .avatar-img {
@@ -75,14 +109,6 @@
       display: none;
       font-size: 3.8rem;
       color: #1e2b32;
-    }
-
-    .avatar img.error + .fallback-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
     }
 
     .card-header h1 {
@@ -261,6 +287,12 @@
         width: 100px;
         height: 100px;
       }
+      .back-button {
+        padding: 0.35rem 0.8rem;
+        font-size: 0.75rem;
+        top: 0.7rem;
+        left: 0.7rem;
+      }
     }
   </style>
 </head>
@@ -268,11 +300,16 @@
 <div class="card">
   <!-- Encabezado: nombre + apellidos + edad con imagen web real -->
   <div class="card-header">
+    <!-- BOTÓN REGRESAR - Redirige a un documento HTML específico -->
+    <!-- CAMBIA "index.html" por el nombre de tu archivo/documento al que quieras regresar -->
+    <a href="../index.html" class="back-button">
+      <i class="fas fa-arrow-left"></i> Regresar
+    </a>
+
     <div class="avatar" id="avatarContainer">
-      <!-- Imagen de perfil desde URL (Unsplash free stock + persona joven sonriente, estilo profesional)
-           Cambia esta URL por la que desees. Usamos una imagen de placeholder real, pero puedes reemplazar -->
+      <!-- Imagen de perfil desde URL -->
       <img class="avatar-img" 
-           src="https://randomuser.me/api/portraits/men/32.jpg" 
+           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTJOxWh-QirKWXBNhjtnpR8ChEzi4K0X5nHA&s" 
            alt="Foto de perfil Erick"
            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
       <i class="fas fa-user-astronaut fallback-icon" style="display: none;"></i>
@@ -336,20 +373,16 @@
   </div>
 </div>
 
-<!-- pequeño script para garantizar el ícono de fallback si la imagen no carga 
-     (el onerror ya se ocupa, pero por si acaso sincronizamos) -->
+<!-- Script para manejo de imagen de fallback -->
 <script>
   (function() {
     const avatarImg = document.querySelector('.avatar-img');
     const fallbackIcon = document.querySelector('.fallback-icon');
     if (avatarImg && fallbackIcon) {
-      // si la imagen ya falló al cargar, el onerror lo cubre.
-      // también verificamos después de un tiempo por si falla tardiamente
       avatarImg.addEventListener('error', function() {
         avatarImg.style.display = 'none';
         if (fallbackIcon) fallbackIcon.style.display = 'flex';
       });
-      // Si la imagen carga correctamente, aseguramos que el icono esté oculto
       avatarImg.addEventListener('load', function() {
         avatarImg.style.display = 'block';
         if (fallbackIcon) fallbackIcon.style.display = 'none';
