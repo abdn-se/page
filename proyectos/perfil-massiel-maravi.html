@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Ingeniería | Massiel Andrea Maravi</title>
+    <style>
+        /* --- PALETA CROMÁTICA (Basada en tus referencias) --- */
+        :root {
+            --fondo-pergamino: #F2EDE4; /* Crema de la imagen 1 */
+            --azul-enfasis: #B8C6D1;    /* Azul de la imagen 2 */
+            --texto-sepia: #5D544B;     /* Marrón oscuro suave */
+            --papel-hueso: #FAF9F6;     /* Blanco marfil */
+            --borde-oro: #C5B396;       /* Dorado apagado */
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: var(--fondo-pergamino);
+            color: var(--texto-sepia);
+            margin: 0;
+            padding: 40px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMC41IiBmaWxsPSIjYThhOGE4Ii8+PC9zdmc+'); /* Sutil textura de puntos */
+        }
+
+        .contenedor-principal {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 25px;
+        }
+
+        /* --- CABECERA ESTILO MANUSCRITO --- */
+        .header-anuario {
+            grid-column: 1 / 4;
+            text-align: center;
+            border-bottom: 2px double var(--borde-oro);
+            padding-bottom: 20px;
+            margin-bottom: 10px;
+        }
+
+        .header-anuario h1 {
+            font-size: 3.5rem;
+            font-style: italic;
+            font-weight: 200;
+            margin: 0;
+            letter-spacing: -1px;
+        }
+
+        /* --- MARCO DE RETRATO (Portrait) --- */
+        .seccion-retrato {
+            grid-column: 2 / 3;
+            background: var(--papel-hueso);
+            border: 1px solid var(--borde-oro);
+            padding: 15px;
+            box-shadow: 10px 10px 0px var(--azul-enfasis);
+            transform: rotate(1deg);
+        }
+
+        .foto-perfil {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            filter: grayscale(0.2) sepia(0.1);
+        }
+
+        /* --- TARJETAS DE INFORMACIÓN (Grid inspirado en la Imagen 1) --- */
+        .tarjeta {
+            background: var(--papel-hueso);
+            padding: 25px;
+            border: 1px solid var(--azul-enfasis);
+            position: relative;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .titulo-tarjeta {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--azul-enfasis);
+            border-bottom: 1px solid var(--azul-enfasis);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* --- SECCIÓN IA VISUAL (Inspirada en el collage de la Imagen 3) --- */
+        .seccion-ia {
+            grid-column: 1 / 4;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .ia-item {
+            background: var(--azul-enfasis);
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-style: italic;
+            border-radius: 2px;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
+            border: 1px solid var(--papel-hueso);
+        }
+
+        /* --- PROYECTOS TÉCNICOS --- */
+        .lista-proyectos {
+            list-style: none;
+            padding: 0;
+            font-size: 0.95rem;
+        }
+
+        .lista-proyectos li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .lista-proyectos li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            color: var(--borde-oro);
+        }
+
+        /* --- PIE DE PÁGINA / BOTÓN --- */
+        .footer-anuario {
+            grid-column: 1 / 4;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-volver {
+            text-decoration: none;
+            color: var(--texto-sepia);
+            border: 1px solid var(--borde-oro);
+            padding: 12px 40px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            transition: 0.3s;
+        }
+
+        .btn-volver:hover {
+            background: var(--azul-enfasis);
+            color: white;
+            border-color: var(--azul-enfasis);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .contenedor-principal { grid-template-columns: 1fr; }
+            .seccion-retrato, .seccion-ia { grid-column: 1 / 2; }
+            .seccion-ia { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="contenedor-principal">
+        
+        <header class="header-anuario">
+            <p style="letter-spacing: 5px; font-size: 0.8rem; margin-bottom: 5px;">ESTUDIANTE DE INGENIERÍA</p>
+            <h1>Massiel Andrea Maravi Z.</h1>
+        </header>
+
+        <section class="tarjeta" style="grid-column: 1 / 2;">
+            <span class="titulo-tarjeta">IMPORTANT</span>
+            <p>
+                En mi <strong>quinto semestre</strong> en SENATI, me dedico a la construcción de sistemas donde la <strong>Inteligencia Artificial</strong> actúa como el núcleo de la eficiencia operativa.
+            </p>
+            <p>
+                Mi visión está puesta en la automatización del <strong>Puerto de Chancay</strong>, integrando soluciones de software que trasciendan la logística convencional.
+            </p>
+        </section>
+
+        <div class="seccion-retrato">
+            <p style="text-align: center; margin-top: 15px; font-style: italic; font-size: 0.8rem;">
+                "La ingeniería es el arte de la precisión."
+            </p>
+        </div>
+
+        <section class="tarjeta" style="grid-column: 3 / 4;">
+            <span class="titulo-tarjeta">OTHERS / Proyectos</span>
+            <ul class="lista-proyectos">
+                <li><strong>Motiva Plus:</strong> Registro Web con MySQL.</li>
+                <li><strong>IoT Security:</strong> Monitoreo mediante sensores.</li>
+                <li><strong>Digit Classifier:</strong> Visión Artificial (CNN).</li>
+                <li><strong>StreamFlix:</strong> Recomendación en Java.</li>
+            </ul>
+        </section>
+
+        <div class="seccion-ia">
+            <div class="ia-item">Redes <br> Neuronales</div>
+            <div class="ia-item" style="background-color: var(--papel-hueso); color: var(--texto-sepia); border: 1px solid var(--azul-enfasis);">Algoritmos <br> de Visión</div>
+            <div class="ia-item">Logística <br> Portuaria</div>
+            <div class="ia-item" style="background-color: var(--papel-hueso); color: var(--texto-sepia); border: 1px solid var(--azul-enfasis);">Sistemas <br> Inteligentes</div>
+        </div>
+
+        <footer class="footer-anuario">
+            <a href="../index.html" class="btn-volver">Regresar al Anuario</a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco Antonio | Portafolio </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg: #020617;
+      --text: #ffffff;
+      --muted: #cbd5e1;
+      --card: rgba(8, 18, 36, .78);
+      --border: rgba(125, 211, 252, .25);
+      --accent: #38bdf8;
+    }
+
+    body.light {
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --muted: #475569;
+      --card: rgba(255,255,255,.86);
+      --border: rgba(14,165,233,.25);
+      --accent: #0284c7;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      font-family: Inter, system-ui, sans-serif;
+      transition: background .4s ease, color .4s ease;
+    }
+
+    .space-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -50;
+      background:
+        linear-gradient(rgba(2,6,23,.32), rgba(2,6,23,.94)),
+        url("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=2200&q=90");
+      background-size: cover;
+      background-position: center;
+      animation: bgMove 40s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgMove {
+      from { transform: scale(1); }
+      to { transform: scale(1.09); }
+    }
+
+    .nebula {
+      position: fixed;
+      inset: 0;
+      z-index: -45;
+      background:
+        radial-gradient(circle at 18% 30%, rgba(56,189,248,.30), transparent 30%),
+        radial-gradient(circle at 80% 18%, rgba(14,165,233,.24), transparent 32%),
+        radial-gradient(circle at 50% 85%, rgba(125,211,252,.16), transparent 38%);
+      animation: nebulaMove 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes nebulaMove {
+      from { transform: translateY(0); }
+      to { transform: translateY(-28px); }
+    }
+
+    canvas {
+      position: fixed;
+      inset: 0;
+      z-index: -30;
+      pointer-events: none;
+    }
+
+    .glass {
+      background: var(--card);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #38bdf8, #7dd3fc, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(45px) scale(.98);
+      transition: .8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .card {
+      transition: .35s ease;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .card:hover {
+      box-shadow: 0 25px 80px rgba(56,189,248,.24);
+      border-color: rgba(56,189,248,.55);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(56,189,248,.14), transparent);
+      transform: translateX(-120%);
+      transition: .8s;
+      pointer-events: none;
+    }
+
+    .card:hover::before {
+      transform: translateX(120%);
+    }
+
+    .float {
+      animation: float 5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-16px); }
+    }
+
+    .orbit {
+      animation: orbit 20s linear infinite;
+    }
+
+    @keyframes orbit {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .typing::after {
+      content: "|";
+      color: var(--accent);
+      animation: blink .8s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee 25s linear infinite;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .back-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 100;
+    }
+
+    .theme-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+
+    .planet {
+      width: 125px;
+      height: 125px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, #dbeafe, #38bdf8 25%, #0369a1 48%, #020617 78%);
+      box-shadow: 0 0 80px rgba(56,189,248,.55);
+    }
+
+    .mini-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: rgba(56,189,248,.13);
+      color: var(--accent);
+    }
+
+    .line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(56,189,248,.65), transparent);
+    }
+
+    .skill-line {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(148,163,184,.22);
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #38bdf8, #7dd3fc);
+      transition: width 1.4s ease;
+    }
+
+    .skill-fill.active { width: var(--value); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="space-bg"></div>
+  <div class="nebula"></div>
+  <canvas id="particles"></canvas>
+
+  <a href="../index.html" class="back-btn glass px-5 py-3 rounded-2xl text-sm font-bold hover:bg-sky-400/10 transition">
+    ← Volver
+  </a>
+
+  <button id="themeToggle" class="theme-btn glass px-5 py-3 rounded-2xl text-sm font-bold hover:bg-sky-400/10 transition">
+    Modo
+  </button>
+
+  <header class="fixed top-0 w-full z-50 glass">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-black gradient-text">MARCO.DEV</h1>
+
+      <div class="hidden md:flex gap-7 text-sm" style="color: var(--muted);">
+        <a href="#perfil">Perfil</a>
+        <a href="#objetivo">Objetivo</a>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#skills">Skills</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#educacion">Educación</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="min-h-screen flex items-center pt-28">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+
+      <div class="reveal">
+        <p class="text-sky-400 font-bold tracking-[.35em] text-sm mb-5">
+          DESARROLLADOR DE SOFTWARE JUNIOR
+        </p>
+
+        <h1 class="text-5xl md:text-7xl font-black leading-tight">
+          Marco Antonio <br>
+          <span class="gradient-text">De La Cruz Taipe</span>
+        </h1>
+
+        <h2 id="typing" class="typing text-2xl md:text-3xl font-bold mt-6"></h2>
+
+        <p class="mt-7 text-lg leading-relaxed max-w-xl" style="color: var(--muted);">
+          Desarrollador de Software Junior enfocado en Backend, Web y Android.
+          Estudiante de Ingeniería de Software con Inteligencia Artificial en SENATI,
+          con experiencia en aplicaciones web, sistemas ERP empresariales,
+          aplicaciones móviles Android, IoT y Python aplicado a inteligencia artificial.
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-3 mt-7 text-sm" style="color: var(--muted);">
+          <div class="glass rounded-2xl px-4 py-3"> 960 901 350</div>
+          <div class="glass rounded-2xl px-4 py-3"> marckdjalone123@gmail.com</div>
+          <div class="glass rounded-2xl px-4 py-3"> Huancayo, Perú</div>
+          <div class="glass rounded-2xl px-4 py-3">🇵🇪 Nacionalidad: Peruana</div>
+        </div>
+
+        <div class="flex flex-wrap gap-4 mt-9">
+          <a href="#proyectos" class="px-8 py-4 bg-sky-500 hover:bg-sky-600 rounded-full font-bold transition text-white">
+            Ver proyectos
+          </a>
+
+          <a href="mailto:marckdjalone123@gmail.com" class="px-8 py-4 glass rounded-full font-bold hover:bg-sky-400/10 transition">
+            Contactarme
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal flex justify-center">
+        <div class="relative float">
+          <div class="absolute -inset-8 border border-sky-400/25 rounded-full orbit"></div>
+          <div class="absolute -inset-16 border border-sky-200/10 rounded-full orbit"></div>
+          <div class="absolute -right-10 top-6 planet orbit"></div>
+
+          <div class="w-80 h-80 md:w-[430px] md:h-[430px] rounded-[2.5rem] p-[2px] bg-gradient-to-br from-sky-300 to-sky-600">
+            <div class="w-full h-full rounded-[2.4rem] overflow-hidden bg-slate-950">
+              <img src="/image/perfil.png"
+                   class="w-full h-full object-cover"
+                   alt="Foto de perfil">
+            </div>
+          </div>
+
+          <div class="absolute -bottom-5 -left-5 glass rounded-2xl px-5 py-3 text-sm">
+            Backend • Web • Android
+          </div>
+
+          <div class="absolute -top-5 -right-5 glass rounded-2xl px-5 py-3 text-sm">
+            IA • ERP • IoT
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="py-5 overflow-hidden border-y border-white/10 bg-white/5">
+    <div class="marquee gap-10 font-bold" style="color: var(--muted);">
+      <span>PHP</span><span>JAVA</span><span>LARAVEL</span><span>JAVASCRIPT</span>
+      <span>MYSQL</span><span>MARIADB</span><span>GIT/GITHUB</span><span>DOCKER</span>
+      <span>XAMPP</span><span>PYTHON</span><span>KOTLIN</span><span>NODE.JS</span>
+      <span>PHP</span><span>JAVA</span><span>LARAVEL</span><span>JAVASCRIPT</span>
+      <span>MYSQL</span><span>MARIADB</span><span>GIT/GITHUB</span><span>DOCKER</span>
+      <span>XAMPP</span><span>PYTHON</span><span>KOTLIN</span><span>NODE.JS</span>
+    </div>
+  </section>
+
+  <section id="perfil" class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-14 reveal">
+        <h2 class="text-4xl md:text-6xl font-black gradient-text">Perfil profesional</h2>
+      </div>
+
+      <div class="glass card p-8 rounded-3xl reveal max-w-5xl mx-auto">
+        <p class="text-lg leading-relaxed" style="color: var(--muted);">
+          Estudiante de Ingeniería de Software con Inteligencia Artificial en SENATI con experiencia en desarrollo de aplicaciones web, sistemas ERP empresariales y aplicaciones móviles Android. Domino tecnologías como Laravel, PHP, Java, JavaScript, MySQL/MariaDB, Docker, Blade y Python aplicado a inteligencia artificial.
+        </p>
+
+        <p class="text-lg leading-relaxed mt-5" style="color: var(--muted);">
+          Capacitado en metodologías ágiles Scrum y control de versiones con Git, desarrollando soluciones reales de negocio que incluyen sistemas de inventario, ventas y contratos. Orientado al aprendizaje continuo y a la creación de soluciones de software escalables de alta calidad.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="objetivo" class="py-24 bg-white/5">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-7">
+        <div class="glass card p-8 rounded-3xl reveal md:col-span-2">
+          <h2 class="text-4xl font-black gradient-text mb-5">Objetivo profesional</h2>
+          <p class="text-lg leading-relaxed" style="color: var(--muted);">
+            Aportar mis conocimientos en backend, arquitectura de software y desarrollo móvil,
+            participando en proyectos tecnológicos de alto nivel, generando impacto con soluciones
+            eficientes y continuando mi crecimiento profesional.
+          </p>
+        </div>
+
+        <div class="glass card p-8 rounded-3xl reveal">
+          <h3 class="text-2xl font-black text-sky-400 mb-4">Áreas clave</h3>
+          <ul class="space-y-2" style="color: var(--muted);">
+            <li>• Desarrollo Backend</li>
+            <li>• Arquitectura de Software</li>
+            <li>• Inteligencia Artificial</li>
+            <li>• Desarrollo Android</li>
+            <li>• Sistemas ERP</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experiencia" class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-14 reveal">
+        <h2 class="text-4xl md:text-6xl font-black gradient-text">Experiencia en desarrollo</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-7">
+        <div class="glass card p-8 rounded-3xl reveal">
+          <p class="text-sky-400 font-bold">Set. 2024 – Dic. 2024</p>
+          <h3 class="text-2xl font-black mt-2">Desarrollador Web Freelance</h3>
+          <p class="text-lg mt-2">Sistema Web para Restaurante</p>
+          <div class="line my-4"></div>
+          <ul class="space-y-2" style="color: var(--muted);">
+            <li>• Diseñé e implementé el sistema usando Docker para el entorno de desarrollo y despliegue.</li>
+            <li>• Construí la aplicación con PHP, Laravel y Blade usando arquitectura MVC.</li>
+            <li>• Administré la base de datos MariaDB optimizando consultas.</li>
+            <li>• Desarrollé módulos de pedidos, inventario y facturación para el restaurante.</li>
+          </ul>
+        </div>
+
+        <div class="glass card p-8 rounded-3xl reveal">
+          <p class="text-sky-300 font-bold">Proyecto en equipo</p>
+          <h3 class="text-2xl font-black mt-2">Desarrollador Backend</h3>
+          <p class="text-lg mt-2">Sistema ERP Empresarial</p>
+          <div class="line my-4"></div>
+          <ul class="space-y-2" style="color: var(--muted);">
+            <li>• Desarrollé módulos de inventario, ventas y contratos usando PHP, Laravel y Blade.</li>
+            <li>• Utilicé MySQL en entorno XAMPP para la base de datos.</li>
+            <li>• Colaboré con un equipo de tres desarrolladores aplicando Scrum y Git.</li>
+            <li>• Optimicé el rendimiento y escalabilidad del sistema empresarial.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="py-24 bg-white/5">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-14 reveal">
+        <h2 class="text-4xl md:text-6xl font-black gradient-text">Habilidades técnicas</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="glass card p-6 rounded-3xl reveal"><div class="flex justify-between mb-2"><span>PHP</span><span>85%</span></div><div class="skill-line"><div class="skill-fill" style="--value:85%"></div></div></div>
+        <div class="glass card p-6 rounded-3xl reveal"><div class="flex justify-between mb-2"><span>Laravel</span><span>85%</span></div><div class="skill-line"><div class="skill-fill" style="--value:85%"></div></div></div>
+        <div class="glass card p-6 rounded-3xl reveal"><div class="flex justify-between mb-2"><span>JavaScript</span><span>75%</span></div><div class="skill-line"><div class="skill-fill" style="--value:75%"></div></div></div>
+        <div class="glass card p-6 rounded-3xl reveal"><div class="flex justify-between mb-2"><span>MySQL / MariaDB</span><span>85%</span></div><div class="skill-line"><div class="skill-fill" style="--value:85%"></div></div></div>
+        <div class="glass card p-6 rounded-3xl reveal"><div class="flex justify-between mb-2"><span>Git / GitHub</span><span>75%</span></div><div class="skill-line"><div class="skill-fill" style="--value:75%"></div></div></div>
+        <div class="glass card p-6 rounded-3xl reveal"><div class="flex justify-between mb-2"><span>Docker</span><span>65%</span></div><div class="skill-line"><div class="skill-fill" style="--value:65%"></div></div></div>
+        <div class="glass card p-6 rounded-3xl reveal"><div class="flex justify-between mb-2"><span>Android Kotlin</span><span>65%</span></div><div class="skill-line"><div class="skill-fill" style="--value:65%"></div></div></div>
+        <div class="glass card p-6 rounded-3xl reveal"><div class="flex justify-between mb-2"><span>Python IA</span><span>65%</span></div><div class="skill-line"><div class="skill-fill" style="--value:65%"></div></div></div>
+        <div class="glass card p-6 rounded-3xl reveal"><div class="flex justify-between mb-2"><span>Node.js</span><span>60%</span></div><div class="skill-line"><div class="skill-fill" style="--value:60%"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-14 reveal">
+        <h2 class="text-4xl md:text-6xl font-black gradient-text">Stack tecnológico</h2>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-6">
+        <div class="glass card p-7 rounded-3xl reveal">
+          <h3 class="text-xl font-black text-sky-400 mb-4">Lenguajes</h3>
+          <p style="color: var(--muted);">PHP • JavaScript • Java • Kotlin • Python • SQL</p>
+        </div>
+
+        <div class="glass card p-7 rounded-3xl reveal">
+          <h3 class="text-xl font-black text-sky-300 mb-4">Frameworks</h3>
+          <p style="color: var(--muted);">Laravel • Blade • Node.js • Tailwind CSS</p>
+        </div>
+
+        <div class="glass card p-7 rounded-3xl reveal">
+          <h3 class="text-xl font-black text-cyan-300 mb-4">Bases de datos</h3>
+          <p style="color: var(--muted);">MySQL • MariaDB • SQL Server • SQLite</p>
+        </div>
+
+        <div class="glass card p-7 rounded-3xl reveal">
+          <h3 class="text-xl font-black text-sky-200 mb-4">Herramientas</h3>
+          <p style="color: var(--muted);">Git • GitHub • Docker • Linux Ubuntu • XAMPP</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proyectos" class="py-24 bg-white/5">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-14 reveal">
+        <h2 class="text-4xl md:text-6xl font-black gradient-text">Proyectos destacados</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="glass card rounded-3xl overflow-hidden reveal">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" class="h-52 w-full object-cover">
+          <div class="p-7">
+            <h3 class="text-2xl font-black mb-3">Aplicación Android</h3>
+            <p style="color: var(--muted);">Sistema de pedidos local construido en Kotlin con SQLite, Bluetooth, red LAN e integración con impresoras para emisión de tickets.</p>
+          </div>
+        </div>
+
+        <div class="glass card rounded-3xl overflow-hidden reveal">
+          <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=900&q=80" class="h-52 w-full object-cover">
+          <div class="p-7">
+            <h3 class="text-2xl font-black mb-3">Proyectos de IA</h3>
+            <p style="color: var(--muted);">Implementación en Python de modelos de aprendizaje automático, árboles de decisión y análisis de datos.</p>
+          </div>
+        </div>
+
+        <div class="glass card rounded-3xl overflow-hidden reveal">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" class="h-52 w-full object-cover">
+          <div class="p-7">
+            <h3 class="text-2xl font-black mb-3">Proyectos IoT</h3>
+            <p style="color: var(--muted);">Radar ultrasónico con servo, pantalla LCD I2C, buzzer, LEDs inteligentes, Arduino y Raspberry Pi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="educacion" class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-14 reveal">
+        <h2 class="text-4xl md:text-6xl font-black gradient-text">Formación académica</h2>
+      </div>
+
+      <div class="glass card p-8 rounded-3xl reveal">
+        <p class="text-sky-400 font-bold">2024 – Actualidad | Huancayo, Junín</p>
+        <h3 class="text-3xl font-black mt-2">SENATI — Ingeniería de Software con Inteligencia Artificial</h3>
+        <div class="line my-5"></div>
+        <p class="text-lg" style="color: var(--muted);">
+          Formación en desarrollo web, backend, apps móviles, bases de datos, arquitectura de software e inteligencia artificial.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 bg-white/5">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-7">
+        <div class="glass card p-8 rounded-3xl reveal">
+          <h2 class="text-3xl font-black gradient-text mb-5">Habilidades blandas</h2>
+          <ul class="space-y-2" style="color: var(--muted);">
+            <li>• Trabajo en equipo</li>
+            <li>• Responsabilidad</li>
+            <li>• Comunicación efectiva</li>
+            <li>• Resolución de problemas</li>
+            <li>• Adaptabilidad</li>
+            <li>• Pensamiento crítico</li>
+          </ul>
+        </div>
+
+        <div class="glass card p-8 rounded-3xl reveal">
+          <h2 class="text-3xl font-black gradient-text mb-5">Idiomas</h2>
+          <ul class="space-y-2" style="color: var(--muted);">
+            <li>• Español — Nativo</li>
+            <li>• Inglés — Básico</li>
+          </ul>
+        </div>
+
+        <div class="glass card p-8 rounded-3xl reveal">
+          <h2 class="text-3xl font-black gradient-text mb-5">Áreas de interés</h2>
+          <ul class="space-y-2" style="color: var(--muted);">
+            <li>• Desarrollo Backend</li>
+            <li>• Arquitectura de Software</li>
+            <li>• Inteligencia Artificial</li>
+            <li>• Desarrollo Android</li>
+            <li>• Sistemas ERP</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lifestyle" class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-14 reveal">
+        <h2 class="text-4xl md:text-6xl font-black gradient-text">Lifestyle & Pasiones</h2>
+        <p class="mt-4" style="color: var(--muted);">Disciplina, tecnología, velocidad, espacio y alto rendimiento.</p>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-7">
+        <div class="glass card rounded-3xl overflow-hidden reveal">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80" class="h-48 w-full object-cover">
+          <div class="p-6"><h3 class="text-xl font-black text-sky-400">Gimnasio</h3></div>
+        </div>
+
+        <div class="glass card rounded-3xl overflow-hidden reveal">
+          <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=900&q=80" class="h-48 w-full object-cover">
+          <div class="p-6"><h3 class="text-xl font-black text-cyan-300">Piscina</h3></div>
+        </div>
+
+        <div class="glass card rounded-3xl overflow-hidden reveal">
+          <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80" class="h-48 w-full object-cover">
+          <div class="p-6"><h3 class="text-xl font-black text-sky-300">Motos deportivas</h3></div>
+        </div>
+
+        <div class="glass card rounded-3xl overflow-hidden reveal">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80" class="h-48 w-full object-cover">
+          <div class="p-6"><h3 class="text-xl font-black text-cyan-400">Autos deportivos</h3></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="py-24 bg-white/5">
+    <div class="max-w-4xl mx-auto text-center px-6 reveal">
+      <h2 class="text-4xl md:text-6xl font-black gradient-text">Contacto</h2>
+
+      <p class="mt-5 text-lg" style="color: var(--muted);">
+        Disponible para prácticas, proyectos freelance, trabajo remoto y nuevos retos en desarrollo de software.
+      </p>
+
+      <div class="grid sm:grid-cols-2 gap-4 mt-8 text-left" style="color: var(--muted);">
+        <div class="glass rounded-2xl p-4">Teléfono: 960 901 350</div>
+        <div class="glass rounded-2xl p-4">Email: marckdjalone123@gmail.com</div>
+        <div class="glass rounded-2xl p-4">Ubicación: Huancayo, Perú</div>
+        <div class="glass rounded-2xl p-4">Nacionalidad: Peruana</div>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        <a href="mailto:marckdjalone123@gmail.com" class="px-7 py-4 bg-sky-500 hover:bg-sky-600 rounded-full font-bold text-white transition">
+          Enviar correo
+        </a>
+
+        <a href="https://github.com/" class="px-7 py-4 glass rounded-full font-bold hover:bg-sky-400/10 transition">
+          GitHub
+        </a>
+ 
+        <a href="#" class="px-7 py-4 glass rounded-full font-bold hover:bg-sky-400/10 transition">
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 text-center border-t border-white/10" style="color: var(--muted);">
+    © 2026 Marco Antonio De La Cruz Taipe | Desarrollador de Software Junior
+  </footer>
+
+  <script>
+    const themeBtn = document.getElementById("themeToggle");
+
+    themeBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+    });
+
+    const words = [
+      "Backend Developer",
+      "Web Developer",
+      "Android Developer",
+      "Laravel Developer",
+      "Python IA",
+      "Software Engineer in progress"
+    ];
+
+    let wordIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    const typing = document.getElementById("typing");
+
+    function typeEffect() {
+      const word = words[wordIndex];
+
+      if (!deleting) {
+        typing.textContent = word.substring(0, charIndex++);
+        if (charIndex > word.length + 8) deleting = true;
+      } else {
+        typing.textContent = word.substring(0, charIndex--);
+        if (charIndex === 0) {
+          deleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
+      }
+
+      setTimeout(typeEffect, deleting ? 45 : 80);
+    }
+
+    typeEffect();
+
+    const reveals = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+
+          const fill = entry.target.querySelector(".skill-fill");
+          if (fill) fill.classList.add("active");
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    document.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("mousemove", e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const rotateX = ((y / rect.height) - .5) * -8;
+        const rotateY = ((x / rect.width) - .5) * 8;
+
+        card.style.transform =
+          `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.02)`;
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "";
+      });
+    });
+
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+
+    let particles = [];
+    let stars = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    }
+
+    window.addEventListener("resize", resize);
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.r = Math.random() * 1.8 + .5;
+        this.vx = Math.random() * .5 - .25;
+        this.vy = Math.random() * .5 - .25;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+
+      draw() {
+        ctx.fillStyle = "rgba(148, 213, 255, .90)";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    class Star {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.r = Math.random() * 1.2 + .3;
+        this.alpha = Math.random();
+        this.speed = Math.random() * .02 + .005;
+      }
+
+      update() {
+        this.alpha += this.speed;
+        if (this.alpha > 1 || this.alpha < .15) this.speed *= -1;
+      }
+
+      draw() {
+        ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      stars = [];
+
+      const particleAmount = window.innerWidth < 768 ? 55 : 120;
+      const starAmount = window.innerWidth < 768 ? 70 : 150;
+
+      for (let i = 0; i < particleAmount; i++) particles.push(new Particle());
+      for (let i = 0; i < starAmount; i++) stars.push(new Star());
+    }
+
+    function connect() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 120) {
+            ctx.strokeStyle = `rgba(56,189,248,${1 - dist / 120})`;
+            ctx.lineWidth = .35;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      stars.forEach(s => {
+        s.update();
+        s.draw();
+      });
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      connect();
+      requestAnimationFrame(animate);
+    }
+
+    resize();
+    animate();
+  </script>
+
+</body>
+</html>
