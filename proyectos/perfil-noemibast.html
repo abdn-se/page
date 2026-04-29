@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Noemi Bastidas | IA</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #eaf9ff 0%, #c2e9fb 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .social-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            width: 400px;
+            border-radius: 30px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        /* Efecto sutil de flotación a la tarjeta principal */
+        .social-card:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: #0077b6;
+            font-size: 28px;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        .username {
+            color: #00b4d8;
+            font-size: 14px;
+            margin-bottom: 25px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .bio {
+            font-size: 15px;
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid #e1f5fe;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .info-personal {
+            text-align: left;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #ffffff;
+            border-radius: 15px;
+            border: 1px solid #f0faff;
+        }
+
+        .info-personal div { margin-bottom: 8px; }
+        .info-personal b { color: #0077b6; }
+
+        .section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #00b4d8;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .grid-intereses {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .tag {
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            color: #555;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            border-left: 4px solid #00b4d8;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .tag:hover {
+            transform: scale(1.05);
+            background: #00b4d8;
+            color: white;
+        }
+
+        .carrera-box {
+            background: #f0faff;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+            border: 1px solid #d0e8f2;
+        }
+
+        .carrera-box h3 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            color: #0077b6;
+        }
+
+        .skill-bar {
+            background: #d0e8f2;
+            height: 10px;
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-per {
+            background: linear-gradient(90deg, #0077b6, #00b4d8);
+            height: 100%;
+            width: 65%;
+            border-radius: 10px;
+            position: relative;
+            /* Animación de carga */
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .btn-volver {
+            display: block;
+            background: #0077b6;
+            color: white;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 119, 182, 0.2);
+        }
+
+        .btn-volver:hover {
+            background: #0096c7;
+            box-shadow: 0 15px 25px rgba(0, 119, 182, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="social-card">
+        <h1>Noemi Bastidas</h1>
+        <span class="username">Ingeniería de Software con IA</span>
+
+        <div class="bio">
+            ¡Hola! Soy Noemi. Una apasionada de la tecnología que valora el orden, la puntualidad.
+        </div>
+
+        <div class="info-personal">
+            <div><b>Ubicación:</b> Orcotuna, Av. Progreso</div>
+            <div><b>Edad:</b> 19 años</div>
+            <div><b>Personalidad:</b> Honesta y responsable</div>
+        </div>
+
+        <span class="section-title">Mis Pasatiempos</span>
+        <div class="grid-intereses">
+            <div class="tag">Escuchar música</div>
+            <div class="tag">Ver películas</div>
+            <div class="tag">Salir a caminar</div>
+            <div class="tag">Fotografía</div>
+        </div>
+
+        <span class="section-title">Formación Actual</span>
+        <div class="carrera-box">
+            <h3>Senati - IA & Software</h3>
+            <p style="font-size: 13px; color: #666;">Enfocada en el desarrollo de redes neuronales y arquitectura de software moderna.</p>
+            <div style="font-size: 11px; color: #0077b6; margin-top: 12px; font-weight: bold; display: flex; justify-content: space-between;">
+                <span>Nivel de Especialización</span>
+                <span>65%</span>
+            </div>
+            <div class="skill-bar">
+                <div class="skill-per"></div>
+            </div>
+        </div>
+                <span class="section-title">Programas y Software</span>
+        <div class="grid-intereses">
+            <div class="tag">Visual Studio Code</div>
+            <div class="tag">Python / AI</div>
+            <div class="tag">Git & GitHub</div>
+            <div class="tag">SQL / Bases de Datos</div>
+            <div class="tag">HTML & CSS</div>
+        </div>
+
+
+        <a href="../index.html" class="btn-volver">← Volver al Anuario</a>
+    </div>
+
+</body>
+</html>
