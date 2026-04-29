@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Roberto Edison — Dev Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@300;400;500&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:      #020408;
+  --s0:      #040810;
+  --s1:      #060d1a;
+  --s2:      #0a1628;
+  --s3:      #0f1f3d;
+  --blue:    #0af;
+  --blue2:   #0066ff;
+  --blue3:   #003380;
+  --cyan:    #00e5ff;
+  --glow:    rgba(0,170,255,0.15);
+  --glow2:   rgba(0,229,255,0.08);
+  --text:    #cce8ff;
+  --muted:   #2a5070;
+  --muted2:  #4a8aaa;
+  --border:  rgba(0,170,255,0.12);
+  --border2: rgba(0,170,255,0.28);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+html,body{
+  width:100%;min-height:100vh;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;
+  overflow-x:hidden;
+}
+
+/* ── DEEP SPACE BG ── */
+#bgC{position:fixed;inset:0;pointer-events:none;z-index:0}
+
+/* ── WRAPPER ── */
+.wrap{
+  position:relative;z-index:1;
+  width:100%;max-width:1100px;
+  padding:24px 16px;
+}
+
+/* ── CARD ── */
+.card{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  background:var(--s0);
+  border:1px solid var(--border2);
+  border-radius:6px;
+  overflow:hidden;
+  position:relative;
+  animation:cardIn 1s cubic-bezier(0.16,1,0.3,1) both;
+  box-shadow:
+    0 0 0 1px rgba(0,100,255,0.1),
+    0 0 60px rgba(0,80,200,0.1),
+    0 40px 120px rgba(0,0,0,0.6);
+}
+
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(30px) scale(0.97)}
+  to{opacity:1;transform:none}
+}
+
+/* Línea top animada */
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 0%,var(--blue) 30%,var(--cyan) 60%,transparent 100%);
+  animation:scanTop 6s ease-in-out infinite;
+  z-index:10;
+}
+@keyframes scanTop{
+  0%{opacity:0;transform:scaleX(0);transform-origin:left}
+  20%{opacity:1;transform:scaleX(1)}
+  80%{opacity:1}
+  100%{opacity:0;transform:scaleX(0);transform-origin:right}
+}
+
+/* ─── PANEL IZQUIERDO ─── */
+.left{
+  background:var(--s1);
+  border-right:1px solid var(--border);
+  padding:36px 28px;
+  display:flex;flex-direction:column;gap:28px;
+  position:relative;overflow:hidden;
+}
+
+/* Hex grid decorativo */
+.left::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle,rgba(0,170,255,0.04) 1px,transparent 1px);
+  background-size:22px 22px;
+  pointer-events:none;
+}
+
+/* Barra izq lateral */
+.left::after{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,transparent,var(--cyan),var(--blue),transparent);
+  animation:leftBar 4s ease-in-out infinite alternate;
+}
+@keyframes leftBar{
+  from{opacity:0.3}to{opacity:1}
+}
+
+/* Avatar */
+.av-zone{display:flex;flex-direction:column;align-items:center;gap:14px}
+
+.av-ring-outer{
+  width:110px;height:110px;
+  border-radius:50%;
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* Anillo SVG girado */
+.av-ring-outer svg{
+  position:absolute;inset:0;width:100%;height:100%;
+  animation:spinRing 8s linear infinite;
+}
+@keyframes spinRing{to{transform:rotate(360deg)}}
+
+.av-inner{
+  width:84px;height:84px;border-radius:50%;
+  background:linear-gradient(135deg,var(--s2) 0%,var(--s3) 100%);
+  border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:1;
+  box-shadow:0 0 30px rgba(0,229,255,0.2) inset;
+  overflow:hidden;
+}
+
+.av-inner img{
+  width:100%;height:100%;object-fit:cover;
+  display:block;
+}
+
+/* Pulso */
+.av-pulse{
+  position:absolute;inset:-6px;border-radius:50%;
+  border:1px solid rgba(0,229,255,0.4);
+  animation:pulseRing 2.5s ease-out infinite;
+}
+.av-pulse2{
+  position:absolute;inset:-14px;border-radius:50%;
+  border:1px solid rgba(0,170,255,0.2);
+  animation:pulseRing 2.5s 0.8s ease-out infinite;
+}
+
+@keyframes pulseRing{
+  0%{transform:scale(0.85);opacity:0}
+  30%{opacity:1}
+  100%{transform:scale(1.2);opacity:0}
+}
+
+/* Online badge */
+.online{
+  display:flex;align-items:center;gap:6px;
+  font-size:9px;color:var(--muted2);letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+.online-dot{width:7px;height:7px;border-radius:50%;background:#00ff88;
+  box-shadow:0 0 8px #00ff88;animation:blink 1.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* Nombre */
+.av-name{text-align:center}
+.name1{
+  font-family:'Orbitron',sans-serif;font-size:13px;font-weight:600;
+  color:var(--text);letter-spacing:2px;line-height:1.4;
+}
+.name2{
+  font-family:'Orbitron',sans-serif;font-size:11px;font-weight:400;
+  color:var(--muted2);letter-spacing:1.5px;margin-top:2px;
+}
+
+/* ID tag */
+.id-tag{
+  background:rgba(0,170,255,0.06);
+  border:1px solid var(--border2);
+  border-radius:3px;padding:8px 14px;text-align:center;
+  font-size:9px;color:var(--cyan);letter-spacing:2px;
+  text-transform:uppercase;position:relative;overflow:hidden;
+}
+.id-tag::before{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(0,229,255,0.08),transparent);
+  animation:shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer{to{left:200%}}
+
+/* Stats verticales */
+.mini-stats{display:flex;flex-direction:column;gap:0}
+
+.ms{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0;border-bottom:1px solid var(--border);
+}
+.ms:last-child{border-bottom:none}
+
+.ms-key{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+.ms-val{
+  font-family:'Orbitron',sans-serif;font-size:14px;font-weight:600;color:var(--blue);
+  text-shadow:0 0 12px rgba(0,170,255,0.5);
+}
+
+/* Sociales */
+.soc-row{display:flex;gap:8px;justify-content:center}
+.soc{
+  flex:1;padding:8px 0;border:1px solid var(--border);
+  border-radius:3px;background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  color:var(--muted2);letter-spacing:1px;cursor:pointer;
+  transition:all 0.25s;text-transform:uppercase;
+  text-align:center;
+}
+.soc:hover{
+  color:var(--cyan);border-color:var(--blue);
+  background:rgba(0,170,255,0.06);
+  box-shadow:0 0 12px rgba(0,170,255,0.15);
+}
+
+/* ─── PANEL DERECHO ─── */
+.right{
+  padding:32px 36px 100px;
+  display:flex;flex-direction:column;gap:0;
+  overflow:hidden;position:relative;
+}
+
+/* ─── FILA SUPERIOR ─── */
+.top-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  margin-bottom:24px;
+}
+
+/* Terminal */
+.terminal{
+  background:#020408;
+  border:1px solid var(--border);
+  border-radius:4px;overflow:hidden;
+}
+
+.term-bar{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 12px;border-bottom:1px solid var(--border);
+  background:rgba(0,170,255,0.04);
+}
+.td{width:8px;height:8px;border-radius:50%}
+.td.r{background:#ff4444}.td.y{background:#ffaa00}.td.g{background:#00cc44}
+.term-title{font-size:9px;color:var(--muted);margin-left:8px;letter-spacing:1px}
+
+.term-body{padding:14px;min-height:100px;font-size:11px;line-height:1.8}
+.t-line{display:flex;gap:8px}
+.t-p{color:var(--cyan);flex-shrink:0}
+.t-c{color:var(--muted2)}
+.t-o{color:#00ff88;padding-left:16px;display:block}
+.t-cur{
+  display:inline-block;width:7px;height:13px;
+  background:var(--cyan);vertical-align:middle;
+  animation:blink 0.7s step-end infinite;
+}
+
+/* Perfil info box */
+.info-box{
+  border:1px solid var(--border);border-radius:4px;
+  padding:18px;display:flex;flex-direction:column;gap:12px;
+  background:rgba(0,170,255,0.02);
+}
+
+.ib-row{display:flex;align-items:baseline;gap:10px}
+.ib-k{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;width:60px;flex-shrink:0}
+.ib-v{font-size:11px;color:var(--text)}
+.ib-v.hi{color:var(--cyan);font-size:12px}
+
+/* ─── SKILLS FILA ─── */
+.skills-section{margin-bottom:22px}
+
+.sec-head{
+  font-size:9px;color:var(--muted);letter-spacing:2.5px;
+  text-transform:uppercase;margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.sec-head::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.skills-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;
+}
+
+.sk{display:flex;flex-direction:column;gap:5px}
+.sk-meta{display:flex;justify-content:space-between}
+.sk-name{font-size:10px;color:var(--muted2);letter-spacing:0.5px}
+.sk-pct{font-size:9px;color:var(--blue)}
+
+.sk-bar{
+  height:2px;background:rgba(0,170,255,0.08);border-radius:0;
+  position:relative;overflow:hidden;
+}
+.sk-fill{
+  height:100%;position:relative;
+  animation:grow 1.5s cubic-bezier(0.16,1,0.3,1) both;
+  animation-delay:var(--d,0.5s);
+}
+@keyframes grow{from{width:0!important}}
+
+.sk-fill::after{
+  content:'';position:absolute;right:0;top:0;
+  width:6px;height:100%;
+  background:inherit;filter:brightness(3);
+  box-shadow:0 0 8px currentColor;
+}
+
+/* Glitch scan en skill bar */
+.sk-bar::after{
+  content:'';position:absolute;top:0;left:-100%;
+  width:40%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(0,229,255,0.4),transparent);
+  animation:scanBar 4s ease-in-out infinite;
+  animation-delay:var(--sd,0s);
+}
+@keyframes scanBar{
+  0%{left:-40%}80%,100%{left:140%}
+}
+
+/* ─── FILA INFERIOR ─── */
+.bottom-row{
+  display:grid;grid-template-columns:1fr auto;gap:24px;
+  align-items:start;
+}
+
+/* Tags */
+.tags-zone{}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tag{
+  font-size:9px;padding:4px 10px;letter-spacing:0.8px;
+  text-transform:uppercase;cursor:default;
+  border:1px solid var(--border);color:var(--muted2);
+  border-radius:2px;transition:all 0.2s;position:relative;overflow:hidden;
+}
+.tag::before{
+  content:'';position:absolute;inset:0;
+  background:var(--blue);opacity:0;transform:scaleX(0);transform-origin:left;
+  transition:transform 0.25s cubic-bezier(0.16,1,0.3,1),opacity 0.25s;
+}
+.tag:hover{color:var(--cyan);border-color:var(--blue)}
+.tag:hover::before{opacity:0.07;transform:scaleX(1)}
+
+/* Activity */
+.hm-zone{flex-shrink:0}
+.activity-list{
+  margin-top:12px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:16px;
+  background:rgba(0,170,255,0.04);
+  border:1px solid var(--border);
+  border-radius:4px;
+}
+.activity-item{
+  display:flex;justify-content:space-between;gap:12px;
+  font-size:11px;color:var(--text);
+  line-height:1.4;
+}
+.activity-item strong{color:var(--cyan);font-weight:600;}
+
+/* Botones */
+.btns{
+  display:flex;gap:10px;
+  position:absolute;right:36px;bottom:32px;
+  flex-wrap:wrap;
+}
+.btn{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:12px 24px;border-radius:3px;cursor:pointer;
+  border:none;transition:all 0.25s;
+}
+.btn-p{
+  background:linear-gradient(135deg,var(--blue2),var(--cyan));
+  color:#000;font-weight:500;
+  box-shadow:0 0 20px rgba(0,170,255,0.3);
+}
+.btn-p:hover{box-shadow:0 0 40px rgba(0,200,255,0.5);transform:translateY(-1px)}
+.btn-g{
+  background:transparent;color:var(--muted2);
+  border:1px solid var(--border2);
+}
+.btn-g:hover{color:var(--cyan);border-color:var(--blue);background:rgba(0,170,255,0.06)}
+
+/* ── SECCIÓN PROYECTOS RECIENTES ── */
+.projects{
+  margin-top:20px;
+  border-top:1px solid var(--border);
+  padding-top:20px;
+}
+.proj-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  margin-top:12px;
+}
+.proj{
+  background:rgba(0,170,255,0.03);
+  border:1px solid var(--border);border-radius:3px;
+  padding:12px;cursor:default;
+  transition:all 0.25s;position:relative;overflow:hidden;
+}
+.proj::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--blue2),var(--cyan));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.proj:hover{border-color:var(--border2);background:rgba(0,170,255,0.06)}
+.proj:hover::before{transform:scaleX(1)}
+.proj-name{font-size:10px;color:var(--text);margin-bottom:4px;letter-spacing:0.5px}
+.proj-desc{font-size:9px;color:var(--muted);line-height:1.6;margin-bottom:8px}
+.proj-tech{
+  font-size:8px;color:var(--blue);
+  background:rgba(0,100,255,0.1);border:1px solid rgba(0,100,255,0.2);
+  display:inline-block;padding:2px 7px;border-radius:2px;letter-spacing:0.5px;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:820px){
+  .card{grid-template-columns:1fr}
+  .left{
+    border-right:none;border-bottom:1px solid var(--border);
+    padding:28px;flex-direction:row;flex-wrap:wrap;gap:20px;
+  }
+  .av-zone{flex-direction:row;align-items:center;gap:16px;flex:1;min-width:200px}
+  .av-name{text-align:left}
+  .mini-stats{flex-direction:row;flex-wrap:wrap;gap:0;flex:1;min-width:200px}
+  .ms{flex-direction:column;align-items:flex-start;gap:2px;
+    padding:10px 14px;border-bottom:none;border-right:1px solid var(--border)}
+  .ms:last-child{border-right:none}
+  .soc-row{flex:1;min-width:100%}
+  .right{padding:24px}
+  .top-row{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:1fr}
+  .bottom-row{grid-template-columns:1fr}
+  .hm-zone{display:none}
+  .proj-grid{grid-template-columns:1fr 1fr}
+  .btns{flex-wrap:wrap}
+}
+
+@media(max-width:480px){
+  .left{flex-direction:column}
+  .av-zone{flex-direction:column}
+  .av-name{text-align:center}
+  .proj-grid{grid-template-columns:1fr}
+  .ms{flex-direction:row;border-right:none;border-bottom:1px solid var(--border)}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bgC"></canvas>
+
+<div class="wrap">
+<div class="card">
+
+  <!-- ═══ IZQUIERDA ═══ -->
+  <div class="left">
+
+    <div class="av-zone">
+      <div class="av-ring-outer">
+        <div class="av-pulse"></div>
+        <div class="av-pulse2"></div>
+        <!-- SVG anillo con dashes -->
+        <svg viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="55" cy="55" r="50" stroke="url(#rg)" stroke-width="1.5"
+            stroke-dasharray="8 4" stroke-linecap="round"/>
+          <circle cx="55" cy="55" r="42" stroke="rgba(0,170,255,0.15)" stroke-width="1"/>
+          <defs>
+            <linearGradient id="rg" x1="0" y1="0" x2="110" y2="110" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#0af"/>
+              <stop offset="50%" stop-color="#00e5ff"/>
+              <stop offset="100%" stop-color="#0066ff"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="av-inner"><img src="../image/imgrobert.jpg" alt="Roberto Edison"></div>
+      </div>
+
+      <div class="av-name">
+        <div class="name1">ROBERTO<br>EDISON</div>
+        <div class="name2">JIMÉNEZ GARCÍA</div>
+      </div>
+    </div>
+
+    <div class="online"><div class="online-dot"></div>DISPONIBLE · EN LÍNEA</div>
+
+    <div class="id-tag">
+      ING. SOFTWARE &amp; INTELIGENCIA ARTIFICIAL
+    </div>
+
+    <div class="mini-stats">
+      <div class="ms">
+        <span class="ms-key">Año</span>
+        <span class="ms-val">3°</span>
+      </div>
+      <div class="ms">
+        <span class="ms-key">Repos</span>
+        <span class="ms-val">14</span>
+      </div>
+      <div class="ms">
+        <span class="ms-key">Commits</span>
+        <span class="ms-val">2.1k</span>
+      </div>
+      <div class="ms">
+        <span class="ms-key">GPA</span>
+        <span class="ms-val">4.8</span>
+      </div>
+      <div class="ms">
+        <span class="ms-key">Proyectos</span>
+        <span class="ms-val">12</span>
+      </div>
+    </div>
+
+    <div class="soc-row">
+      <a class="soc" href="https://github.com/dmnstrrdrfcl-tech" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="soc" href="https://share.google/qqsmBYSMA1j0IXeaB" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="soc" href="https://wa.me/51973661658" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    </div>
+
+  </div>
+
+  <!-- ═══ DERECHA ═══ -->
+  <div class="right">
+
+    <!-- Fila 1: Terminal + Info -->
+    <div class="top-row">
+
+      <div class="terminal">
+        <div class="term-bar">
+          <div class="td r"></div><div class="td y"></div><div class="td g"></div>
+          <span class="term-title">bash — ~/roberto.edison</span>
+        </div>
+        <div class="term-body" id="termBody"></div>
+      </div>
+
+      <div class="info-box">
+        <div class="ib-row">
+          <span class="ib-k">Nombre</span>
+          <span class="ib-v hi">Roberto Edison Jiménez García</span>
+        </div>
+        <div class="ib-row">
+          <span class="ib-k">Rol</span>
+          <span class="ib-v">Software Engineer · AI Specialist</span>
+        </div>
+        <div class="ib-row">
+          <span class="ib-k">Carrera</span>
+          <span class="ib-v">Ing. de Software con IA</span>
+        </div>
+        <div class="ib-row">
+          <span class="ib-k">Enfoque</span>
+          <span class="ib-v">Machine Learning · Full Stack · Sistemas</span>
+        </div>
+        <div class="ib-row">
+          <span class="ib-k">Ubicación</span>
+          <span class="ib-v">Huancayo, Perú · UTC-5</span>
+        </div>
+        <div class="ib-row">
+          <span class="ib-k">Estado</span>
+          <span class="ib-v" style="color:#00ff88">Abierto a proyectos</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Skills -->
+    <div class="skills-section">
+      <div class="sec-head">stack &amp; habilidades</div>
+      <div class="skills-grid">
+        <div class="sk">
+          <div class="sk-meta"><span class="sk-name">Python / ML</span><span class="sk-pct">94%</span></div>
+          <div class="sk-bar" style="--sd:0s"><div class="sk-fill" style="width:94%;background:linear-gradient(90deg,var(--blue2),var(--cyan));--d:0.4s"></div></div>
+        </div>
+        <div class="sk">
+          <div class="sk-meta"><span class="sk-name">Deep Learning / TensorFlow</span><span class="sk-pct">88%</span></div>
+          <div class="sk-bar" style="--sd:0.4s"><div class="sk-fill" style="width:88%;background:linear-gradient(90deg,#0055cc,#00aaff);--d:0.55s"></div></div>
+        </div>
+        <div class="sk">
+          <div class="sk-meta"><span class="sk-name">Transformers / NLP</span><span class="sk-pct">82%</span></div>
+          <div class="sk-bar" style="--sd:0.8s"><div class="sk-fill" style="width:82%;background:linear-gradient(90deg,#003399,#0077ff);--d:0.7s"></div></div>
+        </div>
+        <div class="sk">
+          <div class="sk-meta"><span class="sk-name">Computer Vision</span><span class="sk-pct">79%</span></div>
+          <div class="sk-bar" style="--sd:1.2s"><div class="sk-fill" style="width:79%;background:linear-gradient(90deg,#0044aa,#00ccff);--d:0.85s"></div></div>
+        </div>
+        <div class="sk">
+          <div class="sk-meta"><span class="sk-name">MLOps / Docker</span><span class="sk-pct">76%</span></div>
+          <div class="sk-bar" style="--sd:1.6s"><div class="sk-fill" style="width:76%;background:linear-gradient(90deg,#002288,#0099ee);--d:1s"></div></div>
+        </div>
+        <div class="sk">
+          <div class="sk-meta"><span class="sk-name">React / Node.js</span><span class="sk-pct">72%</span></div>
+          <div class="sk-bar" style="--sd:2s"><div class="sk-fill" style="width:72%;background:linear-gradient(90deg,#001166,#007fdd);--d:1.15s"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fila inferior: tags + heatmap -->
+    <div class="bottom-row">
+      <div class="tags-zone">
+        <div class="sec-head">tecnologías</div>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">TensorFlow</span>
+          <span class="tag">PyTorch</span><span class="tag">HuggingFace</span>
+          <span class="tag">Scikit-learn</span><span class="tag">Transformers</span>
+          <span class="tag">Computer Vision</span><span class="tag">OpenCV</span>
+          <span class="tag">MLOps</span><span class="tag">Docker</span>
+          <span class="tag">Kubernetes</span><span class="tag">AWS</span>
+          <span class="tag">FastAPI</span><span class="tag">GitHub Actions</span>
+          <span class="tag">PostgreSQL</span><span class="tag">Linux</span>
+          <span class="tag">REST API</span><span class="tag">Data Engineering</span>
+        </div>
+      </div>
+
+      <div class="hm-zone">
+        <div class="sec-head">actividad</div>
+        <div class="activity-list">
+          <div class="activity-item"><span>Última actualización</span><strong>Hace 2 horas</strong></div>
+          <div class="activity-item"><span>Commits recientes</span><strong>+18</strong></div>
+          <div class="activity-item"><span>Proyectos activos</span><strong>3</strong></div>
+          <div class="activity-item"><span>Contribuciones esta semana</span><strong>12</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proyectos -->
+    <div class="projects">
+      <div class="sec-head">proyectos recientes</div>
+      <div class="proj-grid">
+        <div class="proj">
+          <div class="proj-name">Sistema de Detección Facial</div>
+          <div class="proj-desc">Reconocimiento en tiempo real con CNN y OpenCV para control de acceso.</div>
+          <span class="proj-tech">Python · OpenCV · TF</span>
+        </div>
+        <div class="proj">
+          <div class="proj-name">Chatbot NLP Universitario</div>
+          <div class="proj-desc">Asistente virtual para consultas académicas usando transformers.</div>
+          <span class="proj-tech">Python · HuggingFace</span>
+        </div>
+        <div class="proj">
+          <div class="proj-name">Dashboard Analítico Web</div>
+          <div class="proj-desc">Plataforma fullstack para visualización de métricas en tiempo real.</div>
+          <span class="proj-tech">React · Node · PostgreSQL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="btns">
+      <a class="btn btn-g" href="../index.html">Regresar al anuario</a>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+/* ── CANVAS SPACE BG ── */
+const C = document.getElementById('bgC');
+const cx = C.getContext('2d');
+let W,H;
+const stars = [];
+const beams = [];
+
+function resize(){
+  W = C.width = window.innerWidth;
+  H = C.height = window.innerHeight;
+}
+
+function initStars(){
+  stars.length = 0;
+  for(let i=0;i<180;i++){
+    stars.push({
+      x:Math.random()*W, y:Math.random()*H,
+      r:Math.random()*1.2,
+      a:Math.random(),
+      da:(Math.random()-0.5)*0.008
+    });
+  }
+}
+
+function initBeams(){
+  beams.length = 0;
+  for(let i=0;i<6;i++){
+    beams.push({
+      x:Math.random()*W,
+      y:Math.random()*H,
+      angle:Math.random()*Math.PI*2,
+      speed:0.15+Math.random()*0.3,
+      len:60+Math.random()*120,
+      a:0,
+      da:0.005+Math.random()*0.008,
+      phase:Math.random()*Math.PI*2
+    });
+  }
+}
+
+let t=0;
+function drawBg(){
+  cx.clearRect(0,0,W,H);
+
+  // Fondo radial
+  const g = cx.createRadialGradient(W*.5,H*.4,0,W*.5,H*.4,W*.7);
+  g.addColorStop(0,'rgba(0,20,60,0.4)');
+  g.addColorStop(1,'rgba(2,4,8,0)');
+  cx.fillStyle=g;
+  cx.fillRect(0,0,W,H);
+
+  // Estrellas
+  stars.forEach(s=>{
+    s.a += s.da;
+    if(s.a>1||s.a<0) s.da*=-1;
+    cx.beginPath();
+    cx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    cx.fillStyle=`rgba(100,180,255,${s.a*0.6})`;
+    cx.fill();
+  });
+
+  // Beams (rayos de luz)
+  t+=0.01;
+  beams.forEach((b,i)=>{
+    const alpha = (Math.sin(t*b.da*100+b.phase)+1)*0.03;
+    const ex = b.x+Math.cos(b.angle)*b.len;
+    const ey = b.y+Math.sin(b.angle)*b.len;
+    const gr = cx.createLinearGradient(b.x,b.y,ex,ey);
+    gr.addColorStop(0,`rgba(0,100,255,0)`);
+    gr.addColorStop(0.5,`rgba(0,170,255,${alpha})`);
+    gr.addColorStop(1,`rgba(0,229,255,0)`);
+    cx.beginPath();
+    cx.moveTo(b.x,b.y);
+    cx.lineTo(ex,ey);
+    cx.strokeStyle=gr;
+    cx.lineWidth=1.5;
+    cx.stroke();
+
+    b.angle+=0.002*((i%2===0)?1:-1);
+    b.x += Math.sin(t+i)*0.3;
+    b.y += Math.cos(t+i)*0.2;
+    if(b.x<0)b.x=W; if(b.x>W)b.x=0;
+    if(b.y<0)b.y=H; if(b.y>H)b.y=0;
+  });
+
+  // Líneas de grid horizontales sutiles
+  for(let y=0;y<H;y+=80){
+    cx.beginPath();
+    cx.moveTo(0,y);cx.lineTo(W,y);
+    cx.strokeStyle='rgba(0,60,120,0.06)';
+    cx.lineWidth=1;cx.stroke();
+  }
+
+  requestAnimationFrame(drawBg);
+}
+
+resize(); initStars(); initBeams(); drawBg();
+window.addEventListener('resize',()=>{resize();initStars();initBeams()});
+
+/* ── TERMINAL ── */
+const tb = document.getElementById('termBody');
+const cmds = [
+  {p:'❯',c:'./init_profile.sh',o:'Loading Roberto Edison Jiménez García...'},
+  {p:'❯',c:'python train.py --model neural_net',o:'[████████████] 100% · loss: 0.0023'},
+  {p:'❯',c:'git log --oneline -3',o:'a3f2c1e feat: NLP chatbot module\nb8d90a2 fix: CNN accuracy +4%\nc1e77f0 init: facial recognition'},
+  {p:'❯',c:'echo $FOCUS',o:'machine_learning · full_stack · IA · research'},
+];
+
+let li=0,ci=0;
+
+function nextLine(){
+  if(li>=cmds.length){li=0;tb.innerHTML='';setTimeout(nextLine,400);return}
+  const l=cmds[li];
+  const row=document.createElement('div');
+  row.className='t-line';
+  const pr=document.createElement('span'); pr.className='t-p'; pr.textContent=l.p;
+  const cm=document.createElement('span'); cm.className='t-c';
+  const cur=document.createElement('span'); cur.className='t-cur';
+  row.append(pr,cm,cur);
+  tb.appendChild(row);
+  ci=0;
+  typeIt(l.c,cm,cur,()=>{
+    cur.remove();
+    setTimeout(()=>{
+      const out=document.createElement('span'); out.className='t-o';
+      out.textContent=l.o; tb.appendChild(out);
+      li++; setTimeout(nextLine,700);
+    },300);
+  });
+}
+
+function typeIt(text,el,cur,done){
+  if(ci<=text.length){
+    el.textContent=text.slice(0,ci++);
+    el.after(cur);
+    setTimeout(()=>typeIt(text,el,cur,done),50+Math.random()*35);
+  } else { setTimeout(done,400); }
+}
+
+setTimeout(nextLine,800);
+
+/* ── TILT 3D ── */
+const card=document.querySelector('.card');
+let raf2;
+card.addEventListener('mousemove',e=>{
+  cancelAnimationFrame(raf2);
+  raf2=requestAnimationFrame(()=>{
+    const r=card.getBoundingClientRect();
+    const x=((e.clientX-r.left)/r.width-0.5)*6;
+    const y=((e.clientY-r.top)/r.height-0.5)*-4;
+    card.style.transform=`perspective(1200px) rotateY(${x}deg) rotateX(${y}deg)`;
+  });
+});
+card.addEventListener('mouseleave',()=>{card.style.transform='';});
+</script>
+</body>
+</html>
