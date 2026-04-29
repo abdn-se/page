@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Jheremy David Leonardo Leon | AI Developer</title>
+    <style>
+        /* ================= CONFIGURACIÓN GLOBAL Y VARIABLES ================= */
+        :root {
+            --bg-color: #060913;
+            --panel-bg: rgba(13, 20, 36, 0.85);
+            --neon-cyan: #00f0ff;
+            --neon-purple: #b026ff;
+            --text-main: #e0e6ed;
+            --text-muted: #8b9bb4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: var(--bg-color); 
+            /* Fondo de cuadrícula tecnológica */
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--text-main); 
+            line-height: 1.6; 
+            padding: 40px 20px; 
+            overflow-x: hidden;
+        }
+
+        /* Tipografía Monospace para títulos (Efecto Terminal/Código) */
+        h1, h2, h3, .item-title, .item-date {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* ================= CONTENEDOR PRINCIPAL ================= */
+        .cv-container { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            background: var(--panel-bg); 
+            display: flex; 
+            border-radius: 15px; 
+            overflow: hidden;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.1), inset 0 0 20px rgba(0, 240, 255, 0.05);
+            backdrop-filter: blur(10px); /* Efecto cristal */
+            animation: fadeInBody 1s ease-out;
+        }
+
+        /* ================= ANIMACIONES ================= */
+        @keyframes fadeInBody {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseBorder {
+            0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 240, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
+        }
+
+        /* ================= BARRA LATERAL (IZQUIERDA) ================= */
+        .sidebar { 
+            background: linear-gradient(180deg, rgba(6, 9, 19, 0.9) 0%, rgba(13, 20, 36, 0.9) 100%);
+            border-right: 1px solid rgba(0, 240, 255, 0.2);
+            width: 35%; 
+            padding: 40px 30px; 
+        }
+
+        .profile-img { 
+            width: 160px; 
+            height: 160px; 
+            border-radius: 50%; 
+            background-color: var(--bg-color); 
+            margin: 0 auto 25px; 
+            display: block; 
+            border: 2px solid var(--neon-cyan); 
+            object-fit: cover;
+            animation: pulseBorder 3s infinite; /* Efecto de latido */
+        }
+
+        .sidebar h2 { 
+            font-size: 1.3rem; 
+            margin-bottom: 15px; 
+            border-bottom: 1px solid var(--neon-cyan); 
+            padding-bottom: 5px; 
+            margin-top: 35px; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+        }
+
+        .sidebar ul li { 
+            font-size: 0.95rem; 
+            margin-bottom: 12px; 
+            color: var(--text-muted); 
+            transition: color 0.3s;
+        }
+
+        .sidebar ul li:hover {
+            color: var(--neon-cyan);
+        }
+
+        .sidebar ul { list-style: none; }
+
+        /* Etiquetas de Habilidades (Badges Futuristas) */
+        .skills-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .skill-badge { 
+            background: transparent; 
+            color: var(--neon-cyan); 
+            padding: 6px 14px; 
+            border-radius: 4px; 
+            font-size: 0.85rem; 
+            font-weight: bold; 
+            border: 1px solid var(--neon-cyan);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        
+        .skill-badge:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px var(--neon-cyan);
+            transform: translateY(-3px);
+        }
+
+        /* ================= CONTENIDO PRINCIPAL (DERECHA) ================= */
+        .main-content { 
+            width: 65%; 
+            padding: 50px 45px; 
+            position: relative;
+        }
+
+        .header h1 { 
+            font-size: 3rem; 
+            color: #fff; 
+            line-height: 1.1; 
+            margin-bottom: 10px; 
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .header h3 { 
+            font-size: 1.5rem; 
+            color: var(--neon-cyan); 
+            margin-bottom: 25px; 
+            letter-spacing: 1px;
+        }
+
+        .header p { 
+            font-size: 1.05rem; 
+            color: var(--text-muted); 
+            text-align: justify; 
+        }
+
+        .section-title { 
+            font-size: 1.5rem; 
+            color: var(--neon-purple); 
+            border-bottom: 1px dashed rgba(176, 38, 255, 0.5); 
+            margin-bottom: 25px; 
+            padding-bottom: 8px; 
+            margin-top: 45px; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(176, 38, 255, 0.4);
+        }
+
+        /* Tarjetas de Experiencia/Proyectos con Transiciones */
+        .item { 
+            margin-bottom: 30px; 
+            padding: 15px;
+            border-left: 2px solid transparent;
+            transition: all 0.4s ease;
+            animation: slideUp 0.8s ease-out backwards;
+        }
+
+        /* Retraso en la animación para que aparezcan en cascada */
+        .item:nth-child(1) { animation-delay: 0.2s; }
+        .item:nth-child(2) { animation-delay: 0.4s; }
+        .item:nth-child(3) { animation-delay: 0.6s; }
+
+        .item:hover {
+            border-left: 2px solid var(--neon-cyan);
+            background: rgba(0, 240, 255, 0.03);
+            transform: translateX(10px);
+        }
+
+        .item-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; flex-wrap: wrap; gap: 10px;}
+        .item-title { font-weight: 700; font-size: 1.3rem; color: #fff; }
+        
+        .item-date { 
+            background-color: rgba(0, 240, 255, 0.1); 
+            color: var(--neon-cyan); 
+            padding: 4px 12px; 
+            border-radius: 4px; 
+            font-size: 0.85rem; 
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            white-space: nowrap;
+        }
+
+        .item-subtitle { 
+            font-weight: 600; 
+            color: var(--text-muted); 
+            margin-bottom: 15px; 
+            font-size: 1rem; 
+        }
+
+        .item p, .item ul { color: var(--text-main); font-size: 0.95rem; }
+        .item ul { margin-left: 20px; margin-top: 10px; }
+        .item ul li { margin-bottom: 8px; list-style-type: square; color: var(--text-muted); }
+        .item ul li strong { color: #fff; }
+
+        /* ================= DISEÑO RESPONSIVO (MÓVILES) ================= */
+        @media (max-width: 850px) {
+            .cv-container { flex-direction: column; }
+            .sidebar, .main-content { width: 100%; border-right: none; }
+            body { padding: 10px; }
+            .cv-container { border-radius: 10px; }
+            .header h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cv-container">
+        
+        <aside class="sidebar">
+            <img src="//assets.change.org/photos/5/au/ae/QJaUaEIevzpEzZW-800x450-noPad.jpg?1589603359" alt="Foto de perfil de Jheremy" class="profile-img">
+            
+            <h2>[ Sistema_Contacto ]</h2>
+            <ul>
+                <li>> 📧 jheremy371@gmail.com</li>
+                <li>> 📱 +51 910 288 210</li>
+                <li>> 📍 Tarma, Junín, Perú</li>
+            </ul>
+
+            <h2>[ Tech_Stack ]</h2>
+            <div class="skills-container">
+                <span class="skill-badge">Java</span>
+                <span class="skill-badge">Kotlin</span>
+                <span class="skill-badge">Android</span>
+                <span class="skill-badge">Firebase</span>
+                <span class="skill-badge">APIs REST</span>
+                <span class="skill-badge">Modelos IA</span>
+                <span class="skill-badge">Arduino</span>
+                <span class="skill-badge">Raspberry Pi</span>
+                <span class="skill-badge">Soporte HW</span>
+            </div>
+
+            <h2>[ Core_Modules ]</h2>
+            <ul>
+                <li>> Metodologías Ágiles (Scrum, Kanban)</li>
+                <li>> Programación Orientada a Objetos</li>
+                <li>> Depuración y Control de Calidad</li>
+                <li>> Aprendizaje Algorítmico y Autónomo</li>
+            </ul>
+
+            <h2>[ Data_Langs ]</h2>
+            <ul>
+                <li>> <strong>Español:</strong> Nativo</li>
+                <li>> <strong>Inglés:</strong> B1 (Preparación C1)</li>
+            </ul>
+
+            <h2>[ Intereses_Usuario ]</h2>
+            <ul>
+                <li>> 🤖 Proyectos de robótica amateur</li>
+                <li>> 📖 Investigación en nuevas tecnologías</li>
+                <li>> 🎮 Estrategia, lógica y simulación</li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1>Jheremy David Leonardo Leon</h1>
+                <h3>> Desarrollador de Software Jr. / IA</h3>
+                <p>Especializado en Inteligencia Artificial y desarrollo de aplicaciones. Cuento con una sólida base técnica en lenguajes de programación, integración de modelos de aprendizaje automático y experiencia práctica en automatización y mantenimiento de sistemas. Poseo una gran capacidad para el aprendizaje rápido y la resolución de problemas, adaptándome eficazmente a entornos colaborativos bajo metodologías ágiles. Comprometido con la entrega de código estructurado y de alta calidad.</p>
+            </header>
+
+            <section>
+                <h2 class="section-title">/ Experiencia_Laboral</h2>
+                
+                <div class="item">
+                    <div class="item-header">
+                        <span class="item-title">Asistente de Sistemas y Soporte Técnico</span>
+                        <span class="item-date">Feb 2026 – Actual</span>
+                    </div>
+                    <div class="item-subtitle">SIA CETPRO | Huancayo, Perú</div>
+                    <ul>
+                        <li><strong>Implementación y Configuración:</strong> Estructuración de datos y personalización del sistema de gestión educativa para asegurar su adaptación a los requerimientos del cliente.</li>
+                        <li><strong>Capacitación y Documentación:</strong> Producción, edición y distribución de videos tutoriales técnicos.</li>
+                        <li><strong>Soporte Operativo:</strong> Resolución ágil de incidencias garantizando la alta disponibilidad del sistema.</li>
+                    </ul>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <span class="item-title">Técnico de Soporte y Ventas</span>
+                        <span class="item-date">Jul 2025 – Nov 2025</span>
+                    </div>
+                    <div class="item-subtitle">PC SUPPORT | Huancayo, Perú</div>
+                    <ul>
+                        <li><strong>Soporte de Hardware:</strong> Diagnóstico, reparación y ejecución de mantenimiento en equipos informáticos.</li>
+                        <li><strong>Gestión de Software:</strong> Instalación, configuración y activación de sistemas operativos Windows.</li>
+                        <li><strong>Atención al Cliente:</strong> Consultoría técnica personalizada y resolución de incidencias tecnológicas.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">/ Proyectos_Destacados</h2>
+                
+                <div class="item">
+                    <div class="item-header">
+                        <span class="item-title">App Móvil de Gestión de Tareas</span>
+                        <span class="item-date">Build: 2025</span>
+                    </div>
+                    <p>Desarrollo de una app nativa en <strong>Kotlin</strong> para Android. Implementación de autenticación de usuarios y base de datos en tiempo real utilizando <strong>Firebase</strong>.</p>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <span class="item-title">Sistema de Clasificación IA</span>
+                        <span class="item-date">Build: 2025</span>
+                    </div>
+                    <p>Integración de un modelo de aprendizaje automático mediante <strong>APIs</strong> para clasificar datos de forma automatizada, optimizando el tiempo de procesamiento. (Proyecto SENATI).</p>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">/ Base_de_Datos_Académica</h2>
+                
+                <div class="item">
+                    <div class="item-header">
+                        <span class="item-title">Educación Superior en Ing. de Software con IA</span>
+                        <span class="item-date">2024 – Actual</span>
+                    </div>
+                    <div class="item-subtitle">SENATI | Huancayo, Perú</div>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <span class="item-title">Educación Secundaria Completa</span>
+                        <span class="item-date">2018 – 2023</span>
+                    </div>
+                    <div class="item-subtitle">I.E.P Cristo te Ama | Tarma, Perú</div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+</body>
+</html>
